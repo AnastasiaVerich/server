@@ -3,15 +3,18 @@ import Container from "@mui/material/Container";
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
-import AlignItemsList, {AlignItemsList2, AlignItemsList3} from "./users";
-import SearchIcon from '@mui/icons-material/Search';
+import AlignItemsList, { AlignItemsList3} from "./users";
 import {styled, alpha} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import PinnedSubheaderList from "./listsms";
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import blue from "@mui/material/colors/blue";
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+
+import MenuIcon from "@mui/icons-material/Menu";
 
 type chatType = {
     user_id_1: string
@@ -102,10 +105,11 @@ export const Chat = () => {
                        display: 'flex',
                        justifyContent: 'center',
                        alignItems: 'center',
-                       border: '2px solid',
+                       padding:'0!important',
+                       margin:'0!important'
                    }}>
 
-            <Grid container spacing={2} sx={{width: '100%', height: '90%', mb: 2}}>
+            <Grid container sx={{width: '100%', height: '100%', mb: 2}}>
                 <Grid item sx={{display: {xs: 'none', md: 'flex'}}} xs={0} md={3}>
                     <Container maxWidth={false}
                                sx={{
@@ -116,66 +120,74 @@ export const Chat = () => {
                                    alignItems: 'flex-start',
                                    flexDirection: 'column',
                                    background: 'hsl(0deg 0% 98%)',
+                                   paddingRight:'0!important',
+                                   paddingLeft:'0!important',
+                                   paddingTop:3,
+                                   paddingBottom: 2
                                }}>
-                        <AlignItemsList2/>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon/>
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{'aria-label': 'search'}}
-                            />
-                        </Search>
+                        <TextField
+                            sx={{margin: '0 16px 16px 16px', width: 'calc(100% - 32px)'}}
+                            label="Поиск…"/>
                         <AlignItemsList/>
                     </Container>
                 </Grid>
-                <Container sx={{display: {xs: 'flex', md: 'none'}, position: 'absolute'}}>
-                    <Button onClick={toggleDrawer('left', true)}>{'left'}</Button>
-                    <Drawer
-                        anchor={'left'}
-                        open={state['left']}
-                        onClose={toggleDrawer('left', false)}
-                    >
-                        <Container maxWidth={false}
-                                   sx={{
-                                       height: '100%',
-                                       width: '100%',
-                                       display: 'flex',
-                                       justifyContent: 'center',
-                                       alignItems: 'flex-start',
-                                       flexDirection: 'column',
-                                       background: 'hsl(0deg 0% 98%)',
-                                   }}>
-                            <AlignItemsList2/>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon/>
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{'aria-label': 'search'}}
-                                />
-                            </Search>
-                            <AlignItemsList/>
-                        </Container>
-                    </Drawer>
-
-                </Container>
                 <Grid item xs={12} md={9}>
                     <Container maxWidth={false}
                                sx={{
                                    height: '100%',
                                    width: '100%',
                                    display: 'flex',
+                                   background: 'white',
                                    flexDirection: 'column',
                                    justifyContent: 'center',
                                    alignItems: 'center',
-                                   background: 'white',
+                                  // padding:'0!important',
+                                   margin:'0!important',
+                                   paddingRight:'0!important',
+                                   paddingLeft:'0!important',
+                                   paddingTop:3,
+                                   paddingBottom: 2
                                }}>
-                        <AlignItemsList3/>
+                        <List sx={{width: '100%', bgcolor: 'background.paper', display: {xs: 'none', md: 'flex'}, padding: 0}}>
+                            <AlignItemsList3/>
+                        </List>
+
+                        <List sx={{width: '100%', bgcolor: 'background.paper', display: {xs: 'flex', md: 'none', alignItems: 'center'}}}>
+                            <Container sx={{display: {xs: 'flex', md: 'none'}, width: 'auto'}}>
+                                <Avatar sx={{ bgcolor: blue[700] }}>
+                                    <MenuIcon onClick={toggleDrawer('left', true)}/>
+                                </Avatar>
+                                <Drawer
+                                    anchor={'left'}
+                                    open={state['left']}
+                                    onClose={toggleDrawer('left', false)}
+                                >
+                                    <Container maxWidth={false}
+                                               sx={{
+                                                   height: '100%',
+                                                   width: '100%',
+                                                   display: 'flex',
+                                                   justifyContent: 'center',
+                                                   alignItems: 'flex-start',
+                                                   flexDirection: 'column',
+                                                   background: 'hsl(0deg 0% 98%)',
+                                               }}>
+
+                                        <TextField
+                                            sx={{margin: '16px', width: 'calc(100% - 32px)'}}
+                                            label="Поиск…"/>
+                                        <AlignItemsList/>
+                                    </Container>
+                                </Drawer>
+
+                            </Container>
+                            <AlignItemsList3/>
+                        </List>
+                        <Divider  variant="middle" sx={{width:'calc(100% - 40px)', margin: '0 0 24px 0'}}/>
                         <PinnedSubheaderList/>
+                        <Divider  variant="middle" sx={{width:'calc(100% - 40px)', margin: '24px 0'}}/>
                         <Box sx={{display: 'flex', width: '100%', alignItems: 'flex-end', padding: '0 20px'}}>
+
                             <TextField
                                 fullWidth
                                 id="outlined-multiline-flexible"
@@ -183,36 +195,14 @@ export const Chat = () => {
                                 multiline
                                 maxRows={4}
                             />
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '56px',
-                                height: '56px',
-                                borderRadius: '50%',
-                                paddingLeft: '5px',
-                                color: 'white',
-                                background: blue[700],
-                                marginLeft: '5px'
-                            }}>
+                            <Avatar sx={{ bgcolor: blue[700], paddingLeft: '3px', marginLeft: '20px' }}>
                                 <SendIcon/>
-                            </div>
+                            </Avatar>
+
                         </Box>
                     </Container>
                 </Grid>
-                {/*<Grid item xs={12} sm={0}>
-                        <Container maxWidth={false}
-                                   sx={{
-                                       height: '100%',
-                                       width: '100%',
-                                       display: 'flex',
-                                       justifyContent: 'center',
-                                       alignItems: 'center',
-                                       background: 'hsl(0deg 0% 98%)',
-                                   }}>
 
-                        </Container>
-                    </Grid>*/}
             </Grid>
 
         </Container>

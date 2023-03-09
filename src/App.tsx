@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./ui/Headet";
-import Container from '@mui/material/Container'
 
 import {SignIn} from "./ui/SignIn";
 import SignUp from "./ui/SignUp";

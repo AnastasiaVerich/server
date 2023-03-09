@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Container from "@mui/material/Container";
 import blue from "@mui/material/colors/blue";
+import Divider from "@mui/material/Divider";
 
 
 export default function PinnedSubheaderList() {
@@ -13,7 +14,6 @@ export default function PinnedSubheaderList() {
                    sx={{
                        paddingLeft: '0!important',
                        height: '100%',
-                       marginBottom:'20px',
                        position: 'relative',
                    }}>
             <List
@@ -50,6 +50,7 @@ export default function PinnedSubheaderList() {
                     </ul>
                 </li>
             ))}
-        </List></Container>
+        </List>
+        </Container>
     );
 }
