@@ -177,7 +177,7 @@ export  function AlignItemsList2() {
 export  function AlignItemsList3() {
     return (
 
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
             <ListItem alignItems="flex-start" sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -198,7 +198,7 @@ export  function AlignItemsList3() {
                     }
                 />
             </ListItem>
-            <Divider variant="inset" component="li" />
+            <Divider />
         </List>
     );
 }
