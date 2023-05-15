@@ -12,12 +12,15 @@ import {Shedule} from "./ui/Shedule";
 import AlertDialog from "./popap/popap_1";
 import FormDialog from "./popap/popap_2";
 import {Chat} from "./ui/Messanger";
+import {TestServerConnect} from "./ui/test_server_coonect";
+import {Videochat} from "./ui/videchat/App";
 
 function App() {
     return (
         <div className="App">
             <Header/>
-            <Chat/>
+            <Videochat/>
+           {/* <TestServerConnect/>*/}
            {/* <SignUpMain/>*/}
            {/* <Container maxWidth={false}  sx={{ minHeight:'calc(100vh - 68.5px)', width: '100vw'}} >
 

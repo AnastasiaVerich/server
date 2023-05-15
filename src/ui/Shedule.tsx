@@ -65,13 +65,23 @@ export const Shedule = () => {
                     startDayHour={7}
                     endDayHour={12}
                 />
+
+
+
+
                 <WeekView startDayHour={9} endDayHour={19}/>
 
                 <WeekView startDayHour={9}
                           name="work-week"
                           displayName="Work Week"
                           endDayHour={19}/>
+
+
                 <MonthView/>
+
+
+
+
 
                 <Toolbar />
                 <DateNavigator />
@@ -84,7 +94,7 @@ export const Shedule = () => {
                     showOpenButton
                 />
 
-                <AppointmentForm readOnly/>
+                <AppointmentForm />
                 <CurrentTimeIndicator
                     shadePreviousCells
                     shadePreviousAppointments
