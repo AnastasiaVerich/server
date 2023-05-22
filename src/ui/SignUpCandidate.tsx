@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {generic} from "../api/api";
 
 function Copyright(props: any) {
     return (
@@ -28,14 +29,23 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUpCandidate() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const form_data = new FormData(event.currentTarget);
+        const data = {
+            surname: form_data.get('surname'),
+            name: form_data.get('name'),
+            patronymic: form_data.get('patronymic'),
+
+            phone_number: form_data.get('phone_number'),
+
+            email: form_data.get('email'),
+            password: form_data.get('password'),
+
+            agree: form_data.get('agree'),
+        }
+        generic.registration(data,'candidate')
     };
 
     return (
@@ -66,25 +76,43 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={4}>
                                 <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
                                     required
                                     fullWidth
-                                    id="firstName"
-                                    label="Имя"
+                                    id="surname"
+                                    label="Фамилия"
+                                    name="surname"
                                     autoFocus
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={4}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="name"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Имя"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="lastName"
-                                    label="Фамилия"
-                                    name="lastName"
-                                    autoComplete="family-name"
+                                    id="patronymic"
+                                    label="Отчество"
+                                    name="patronymic"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="phone_number"
+                                    label="Телефон"
+                                    name="phone_number"
+                                    autoComplete="phone_number"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -108,6 +136,7 @@ export default function SignUp() {
                                     autoComplete="new-password"
                                 />
                             </Grid>
+
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value="allowExtraEmails" color="primary" />}

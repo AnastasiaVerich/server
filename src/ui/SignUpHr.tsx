@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {generic} from "../api/api";
 
 function Copyright(props: any) {
     return (
@@ -28,14 +29,27 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignUpMain() {
+export default function SignUpHr() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const form_data = new FormData(event.currentTarget);
+        const data = {
+            surname: form_data.get('surname'),
+            name: form_data.get('name'),
+            patronymic: form_data.get('patronymic'),
+
+            organization_label: form_data.get('organization_label'),
+            job_title: form_data.get('job_title'),
+            legal_address: form_data.get('legal_address'),
+
+            phone_number: form_data.get('phone_number'),
+
+            email: form_data.get('email'),
+            password: form_data.get('password'),
+
+            agree: form_data.get('agree'),
+        }
+        generic.registration(data,'hr')
     };
 
     return (
@@ -70,19 +84,19 @@ export default function SignUpMain() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="lastName"
+                                    id="surname"
                                     label="Фамилия"
-                                    name="lastName"
+                                    name="surname"
                                     autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="name"
                                     required
                                     fullWidth
-                                    id="firstName"
+                                    id="name"
                                     label="Имя"
                                 />
                             </Grid>
@@ -90,9 +104,9 @@ export default function SignUpMain() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="surName"
+                                    id="patronymic"
                                     label="Отчество"
-                                    name="surName"
+                                    name="patronymic"
                                 />
                             </Grid>
 
@@ -100,20 +114,20 @@ export default function SignUpMain() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="organization"
+                                    id="organization_label"
                                     label="Наименование организации"
-                                    name="organization"
-                                    autoComplete="organization"
+                                    name="organization_label"
+                                    autoComplete="organization_label"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="jobTitle"
+                                    id="job_title"
                                     label="Должность"
-                                    name="jobTitle"
-                                    autoComplete="jobTitle"
+                                    name="job_title"
+                                    autoComplete="job_title"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -124,6 +138,16 @@ export default function SignUpMain() {
                                     label="Юредический адрес"
                                     type="legal_address"
                                     id="legal_address"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="phone_number"
+                                    label="Телефон"
+                                    name="phone_number"
+                                    autoComplete="phone_number"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -149,7 +173,11 @@ export default function SignUpMain() {
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                    control={
+                                    <Checkbox value="allowExtraEmails"
+                                              name="agree"
+                                              id="agree"
+                                              color="primary" />}
                                     label="Даю согласие на обработку персональных данных. Ознакомлен с политикой конфилициальности"
                                 />
                             </Grid>

@@ -16,28 +16,34 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
-let isAuth = 0//1 - HR 2- Кандидат
-
-let menu: Array<string>
-let user_menu: Array<string>
-let logo = 'EasyWork'
-
-if (isAuth === 0) {
-    menu = ['Соискателям', 'Работодателям'];
-    user_menu = ['Вход | Регистрация'];
-} else if (isAuth === 1) {
-    menu = ['Вакансии', 'Кандидаты', 'Видеочат'];
-    user_menu = ['Личный кабинет', 'Выход'];
-} else {
-    menu = ['Вакансии', 'Избранное', 'Видеочат'];
-    user_menu = ['Личный кабинет', 'Выход'];
-}
+import {Link} from "react-router-dom";
 
 
-export const Header = () => {
+
+
+export const Header = (props:any) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+
+
+    let menu: Array<{label:string,link:string}> =[{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}]
+    let user_menu: Array<{label:string,link:string}>= [{label:'Вход | Регистрация',link:'/login'}]
+    let logo = 'EasyWork'
+
+    if (props.isAuth === 0) {
+        menu = [{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}];
+        user_menu = [{label:'Вход | Регистрация',link:'/login'}];
+    } else if (props.isAuth === 1) {
+        menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Кандидаты',link:'/candidates'}, {label:'Видеочат',link:'/videochat'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
+    } else if (props.isAuth === 2) {
+        menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Избранное',link:'/favorites'}, {label:'Видеочат',link:'/videochat'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
+    } else if (props.isAuth === 4) {
+        menu = [{label:'Главная',link:'/'},{label:'Вакансии',link:'/vacancies'},{label:'Кандидаты',link:'/candidates'},{label:'Видеочат',link:'/videochat'}];
+        user_menu = [{label:'Вход | Регистрация',link:'/login'}];
+    }
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -54,6 +60,11 @@ export const Header = () => {
         setAnchorElUser(null);
     };
 
+    /*<nav>
+        <Link to="/">Home</Link>
+        <Link to="/foo">Foo</Link>
+        <Link to="/bar">Bar</Link>
+    </nav>*/
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -106,29 +117,29 @@ export const Header = () => {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {menu.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {menu.map((page,i) => (
+                                <MenuItem key={i} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center"><Link to={page.link}>{page.label}</Link></Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {menu.map((page) => (
+                        {menu.map((page,i) => (
                             <Button
-                                key={page}
+                                key={i}
                                 onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {page}
+                                <Link to={page.link}>{page.label}</Link>
                             </Button>
                         ))}
                     </Box>
 
 
                     <Box sx={{flexGrow: 1}}/>
-                    {isAuth !== 0
+                    {props.isAuth !== 0
                         && <>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={4} color="error">
@@ -145,15 +156,15 @@ export const Header = () => {
                                 </Badge>
                             </IconButton>
                         </>}
-                    {isAuth === 0
+                    {props.isAuth === 0
                         ? <Box sx={{flexGrow: 0}}>
-                            {user_menu.map((page) => (
+                            {user_menu.map((page,i) => (
                                 <Button
-                                    key={page}
+                                    key={i}
                                     onClick={handleCloseNavMenu}
                                     sx={{my: 2, color: 'white', display: 'block'}}
                                 >
-                                    {page}
+                                    <Link to={page.link}>{page.label}</Link>
                                 </Button>
                             ))}
                         </Box>
@@ -193,9 +204,9 @@ export const Header = () => {
                             >
 
 
-                                {user_menu.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                {user_menu.map((setting,i) => (
+                                    <MenuItem key={i} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center"><Link to={setting.link}>{setting.label}</Link></Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
