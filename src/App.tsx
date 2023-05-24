@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./ui/Headet";
-
+import 'react-toastify/dist/ReactToastify.css'
 import {SignIn} from "./ui/SignIn";
 import SignUpCandidate from "./ui/SignUpCandidate";
 import SignUpHr from "./ui/SignUpHr";
@@ -17,11 +17,13 @@ import {Videochat} from "./ui/videchat/App";
 
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import {Main} from "./ui/Main";
+import {ToastContainer} from "react-toastify";
 export const  App=(props:any) =>{
     return (
+        <>
         <Router>
             <div className="App">
-                <Header isAuth={props.state.generic.isAuth}/>
+                <Header auth_state={props.state.generic.auth_state}/>
 
                 <Switch>
                     <Route exact path="/" component={Main} />{/*нез  HR*/}
@@ -38,6 +40,19 @@ export const  App=(props:any) =>{
                 </Switch>
             </div>
         </Router>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            </>
         /*<div className="App">
 
 

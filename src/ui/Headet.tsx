@@ -31,16 +31,16 @@ export const Header = (props:any) => {
     let user_menu: Array<{label:string,link:string}>= [{label:'Вход | Регистрация',link:'/login'}]
     let logo = 'EasyWork'
 
-    if (props.isAuth === 0) {
+    if (props.auth_state === 'unlogged') {
         menu = [{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}];
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
-    } else if (props.isAuth === 1) {
+    } else if (props.auth_state === 'hr') {
         menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Кандидаты',link:'/candidates'}, {label:'Видеочат',link:'/videochat'}];
         user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
-    } else if (props.isAuth === 2) {
+    } else if (props.auth_state === 'candidate') {
         menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Избранное',link:'/favorites'}, {label:'Видеочат',link:'/videochat'}];
         user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
-    } else if (props.isAuth === 4) {
+    } else if (props.auth_state === 'test') {
         menu = [{label:'Главная',link:'/'},{label:'Вакансии',link:'/vacancies'},{label:'Кандидаты',link:'/candidates'},{label:'Видеочат',link:'/videochat'}];
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
     }
@@ -139,7 +139,7 @@ export const Header = (props:any) => {
 
 
                     <Box sx={{flexGrow: 1}}/>
-                    {props.isAuth !== 0
+                    {props.auth_state !== 'unlogged'
                         && <>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={4} color="error">
@@ -156,7 +156,7 @@ export const Header = (props:any) => {
                                 </Badge>
                             </IconButton>
                         </>}
-                    {props.isAuth === 0
+                    {props.auth_state === 'unlogged'
                         ? <Box sx={{flexGrow: 0}}>
                             {user_menu.map((page,i) => (
                                 <Button

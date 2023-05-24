@@ -194,8 +194,9 @@ let store = {
         },
 
         generic:{
+            //unlogged hr candidate test
             //0-незарег, 1 - HR 2- Кандидат, 4 - тест нужных пунктов
-            isAuth:0,
+            auth_state:'unlogged',
         }
 
     },
@@ -206,6 +207,10 @@ let store = {
                 prev_state[el]=new_state[el]
             }
         })
+        store.render()
+    },
+    change_auth_state(new_state:string){
+        this._state.generic.auth_state = new_state
         store.render()
     },
 

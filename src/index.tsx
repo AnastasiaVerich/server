@@ -12,7 +12,9 @@ let rerenderentarettreee = (state:any) => {
     root.render(
         <React.StrictMode>
             <App state={state}
-                 render={store.render.bind(store)}/>
+                 render={store.render.bind(store)}
+                 change_auth_state={store.change_auth_state.bind(store)}
+            />
         </React.StrictMode>
     )
 
