@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Link as RouterLink} from "react-router-dom";
 import {generic} from "../api/api";
+import {SendCodeInMail} from "./pop-up/send_code_in_mail";
 
 const logo:string = 'EasyWork'
 function Copyright(props: any) {
@@ -31,7 +32,14 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export const SignIn = () => {
+export const SignIn = (props:any) => {
+
+    const [openSendCodePopup, setOpenSendCodePopup] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpenSendCodePopup(true);
+    };
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form_data = new FormData(event.currentTarget);
@@ -40,7 +48,6 @@ export const SignIn = () => {
             password: form_data.get('password'),
         }
         const remember = form_data.get('remember')
-        console.log('z [pppp')
         generic.login(data,remember)
     };
 
@@ -117,15 +124,8 @@ export const SignIn = () => {
                                     Вход
                                 </Button>
                                 <Grid container>
-                                    <Grid item xs>
-                                        <Link href="#" variant="body2">
+                                    <Grid item xs  onClick={handleClickOpen}>
                                             Забыли пароль
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"Нет аккаунта? Зарегестрируйся."}
-                                        </Link>
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -175,6 +175,7 @@ export const SignIn = () => {
 
                     </Container>
 
+                    <SendCodeInMail open={openSendCodePopup} setOpen={setOpenSendCodePopup} user_id={props.user_id} />
             </Container>
             </Container>
         </ThemeProvider>

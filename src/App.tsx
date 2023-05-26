@@ -18,24 +18,39 @@ import {Videochat} from "./ui/videchat/App";
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import {Main} from "./ui/Main";
 import {ToastContainer} from "react-toastify";
+import {PersonalArea} from "./ui/PersonalArea";
 export const  App=(props:any) =>{
     return (
         <>
         <Router>
             <div className="App">
-                <Header auth_state={props.state.generic.auth_state}/>
+                <Header auth_state={props.state.generic.auth_state}
+                        user_id={props.state.user.user_data.user_id}/>
 
                 <Switch>
                     <Route exact path="/" component={Main} />{/*нез  HR*/}
 
                     <Route exact path="/registration" component={SignUpCandidate} />{/*нез  */}
                     <Route exact path="/registration/hr" component={SignUpHr} />{/*нез  */}
-                    <Route exact path="/login" component={SignIn} />{/*нез  */}
+                    <Route exact path="/login"  render={(e)=>{
+                        return <SignIn user_id={props.state.user.user_data.user_id}/>
+                    }}/>{/*нез  */}
 
                     <Route exact path="/vacancies" component={TableMain} />{/*нез канд HR*/}
                     <Route exact path="/candidates" component={TableMain} />
 
                     <Route exact path="/videochat" component={Videochat}/>{/*канд */}
+                    <Route exact path="/personal_area" render={(e)=>{
+                        return <PersonalArea type={props.state.user.user_data.type}
+                                             user_id={props.state.user.user_data.user_id}/>
+                    }}/>{/*канд hr*/}
+                    <Route exact path="/personal_area/:part"  render={(e)=>{
+                        return <PersonalArea part={e.match.params.part}
+                                             user_data={props.state.user.user_data}
+                                             type={props.state.user.user_data.type}
+                                             user_id={props.state.user.user_data.user_id}/>
+                    }}/>{/*канд hr*/}
+                    <Route exact path="/chat" component={Chat}/>{/*канд hr*/}
 
                 </Switch>
             </div>

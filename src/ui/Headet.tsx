@@ -17,6 +17,7 @@ import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {Link} from "react-router-dom";
+import {generic} from "../api/api";
 
 
 
@@ -28,7 +29,7 @@ export const Header = (props:any) => {
 
 
     let menu: Array<{label:string,link:string}> =[{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}]
-    let user_menu: Array<{label:string,link:string}>= [{label:'Вход | Регистрация',link:'/login'}]
+    let user_menu: Array<{label:string,link:string,func?:any}>= [{label:'Вход | Регистрация',link:'/login'}]
     let logo = 'EasyWork'
 
     if (props.auth_state === 'unlogged') {
@@ -36,15 +37,18 @@ export const Header = (props:any) => {
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
     } else if (props.auth_state === 'hr') {
         menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Кандидаты',link:'/candidates'}, {label:'Видеочат',link:'/videochat'}];
-        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout', func:logout}];
     } else if (props.auth_state === 'candidate') {
         menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Избранное',link:'/favorites'}, {label:'Видеочат',link:'/videochat'}];
-        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout', func:logout}];
     } else if (props.auth_state === 'test') {
         menu = [{label:'Главная',link:'/'},{label:'Вакансии',link:'/vacancies'},{label:'Кандидаты',link:'/candidates'},{label:'Видеочат',link:'/videochat'}];
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
     }
 
+    function logout(){
+        generic.logout(props.user_id)
+    }
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -143,7 +147,7 @@ export const Header = (props:any) => {
                         && <>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={4} color="error">
-                                    <MailIcon/>
+                                    <Link to={'/chat'}><MailIcon/></Link>
                                 </Badge>
                             </IconButton>
                             <IconButton
@@ -161,7 +165,11 @@ export const Header = (props:any) => {
                             {user_menu.map((page,i) => (
                                 <Button
                                     key={i}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={()=>{
+                                        console.log(1)
+                                        page.func && page.func()
+                                        handleCloseNavMenu()
+                                    }}
                                     sx={{my: 2, color: 'white', display: 'block'}}
                                 >
                                     <Link to={page.link}>{page.label}</Link>
@@ -204,9 +212,14 @@ export const Header = (props:any) => {
                             >
 
 
-                                {user_menu.map((setting,i) => (
-                                    <MenuItem key={i} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center"><Link to={setting.link}>{setting.label}</Link></Typography>
+                                {user_menu.map((el,i) => (
+                                    <MenuItem key={i} onClick={()=>{
+                                        console.log(el)
+                                        console.log(i)
+                                        el.func && el.func()
+                                        handleCloseNavMenu()
+                                    }}>
+                                        <Typography textAlign="center" ><Link to={el.link}>{el.label}</Link></Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
