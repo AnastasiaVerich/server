@@ -44,11 +44,11 @@ export default function Room() {// @ts-ignore
       alignItems: 'center',
       justifyContent: 'center',
       flexWrap: 'wrap',
-      height: '100vh',
+      height: 'calc(100vh - 68.5px)',
     }}>
       {clients.map((clientID:any, index:any) => {
         return (
-          <div key={clientID} style={videoLayout[index]} id={clientID}>
+          <div key={clientID} style={{height:'100%', width:'100%'}} id={clientID}>
             <video
               width='100%'
               height='100%'

@@ -151,3 +151,31 @@ export const resume={
             })
     },
 }
+export const vacancy={
+    create_vacancy(form_data:any,user_id:string){
+        axios.post('http://localhost:3001/api/create_vacancy',{
+            form_data:form_data,
+            user_id:user_id,
+        })
+            .then(function (response) {
+                toast.info('сохранено')
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    create_interview_questions(form_data:any,user_id:string){
+        axios.post('http://localhost:3001/api/create_interview_questions',{
+            form_data:form_data,
+            user_id:user_id,
+        })
+            .then(function (response) {
+                toast.info('сохранено')
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+}

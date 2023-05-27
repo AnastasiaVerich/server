@@ -12,8 +12,9 @@ import {MultipleSelectChip} from "../common/SelectMult";
 import {resume} from "../../api/api";
 import DialogContentText from "@mui/material/DialogContentText";
 import {DateMaskCustom} from "../common/date_mask";
-import {enum_education_data_type, enum_employment_type, enum_languages_data_level, skills_select} from "../common/enum";
+import {enum_education_data_type, enum_employment_type, enum_languages_data_level} from "../common/enum";
 import {SelectOne} from "../common/SelectOne";
+import {skills_select} from "../common/select_data";
 
 export const CreateResume = (props: any) => {
 

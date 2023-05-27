@@ -20,7 +20,15 @@ export const enum_languages_data_level = [
     {value:'C1', label:'C1'},
     {value:'C2', label:'C2'}
 ]
-export const skills_select = [
-    {value:'React', label:'React'},
-    {value:'Css', label:'Css'},
-    {value:'Html', label:'Html'}]
+export const enum_vacancy_experience = [
+    {value:'0.5 -1', label:'0.5 -1'},
+    {value:'1-3', label:'1-3'},
+    {value:'3-6', label:'3-6'},
+    {value:'6+', label:'6+'},
+]
+
+export const enum_help_data_type = [
+    {value:'check', label:'С ответами да / нет'},
+    {value:'question', label:'Без ответов'},
+    {value:'select', label:'С вариантами ответов'}]
+

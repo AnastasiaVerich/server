@@ -9,8 +9,8 @@ import {TableMain} from "./ui/Table_main";
 import {Table_second2} from "./ui/Table_second2";
 import {Shedule} from "./ui/Shedule";
 
-import AlertDialog from "./popap/popap_1";
-import FormDialog from "./popap/popap_2";
+import AlertDialog from "./ui/popup/popap_1";
+import FormDialog from "./ui/popup/popap_2";
 import {Chat} from "./ui/Messanger";
 import {TestServerConnect} from "./ui/test_server_coonect";
 import {Videochat} from "./ui/videchat/App";

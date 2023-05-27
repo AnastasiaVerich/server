@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -16,31 +14,37 @@ import MailIcon from '@mui/icons-material/Mail';
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {generic} from "../api/api";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
 import {toast} from "react-toastify";
 import {CreateResume} from "./pop-up/create_resume";
+import {CreateVacancy} from "./pop-up/create_vacancy";
+import {CreateInterviewQuestions} from "./pop-up/create_interview_questions";
 
 const drawerWidth = 240;
 
 export const PersonalArea = (props: any) => {
     const [openCreateResume, setOpenCreateResume] = React.useState(false);
+    const [openCreateVacancy, setOpenCreateVacancy] = React.useState(false);
+    const [openCreateInterviewQuestions , setOpenCreateInterviewQuestions ] = React.useState(false);
 
     const handleClickOpenCreateResume = () => {
         setOpenCreateResume(true);
     };
 
+    const handleClickOpenCreateVacancy = () => {
+        setOpenCreateVacancy(true);
+    };
+    const handleClickOpenCreateInterviewQuestions  = () => {
+        setOpenCreateInterviewQuestions (true);
+    };
     let menu: { label: string, link: string }[] = [{label: '', link: ''}]
     let under_menu: { label: string, link: string }[] = [{label: '', link: ''}]
     if (props.type === 'candidate') {
         menu = [{label: 'Резюме', link: '/personal_area/resume'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
-    } else if (props.type === '') {
-        menu = [{label: 'Вакансии', link: '/personal_area/vacancy'}]
+    } else if (props.type === 'hr') {
+        menu = [{label: 'Вакансии', link: '/personal_area/vacancy'}
+            ,{label: 'Интервью-вопросы', link: '/personal_area/interview-questions'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
     }
     const changePassword = (event: React.FormEvent<HTMLFormElement>) => {
@@ -206,6 +210,38 @@ export const PersonalArea = (props: any) => {
                               user_id={props.user_id}
                               user_data={props.user_data}
                               setOpen={setOpenCreateResume}/>
+
+            </Box>}
+            {props.part === 'vacancy' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{mt: 3, mb: 2}}
+                    onClick={handleClickOpenCreateVacancy}
+                >
+                    Создать Вакансию
+                </Button>
+                <CreateVacancy open={openCreateVacancy}
+                              user_id={props.user_id}
+                              user_data={props.user_data}
+                              setOpen={setOpenCreateVacancy}/>
+
+            </Box>}
+            {props.part === 'interview-questions' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{mt: 3, mb: 2}}
+                    onClick={handleClickOpenCreateInterviewQuestions }
+                >
+                    Создать интервью-вопросы
+                </Button>
+                <CreateInterviewQuestions open={openCreateInterviewQuestions }
+                              user_id={props.user_id}
+                              user_data={props.user_data}
+                              setOpen={setOpenCreateInterviewQuestions }/>
 
             </Box>}
         </Box>
