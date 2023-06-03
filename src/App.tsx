@@ -1,24 +1,20 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./ui/Headet";
+import {Header} from "./ui/Header";
 import 'react-toastify/dist/ReactToastify.css'
 import {SignIn} from "./ui/SignIn";
 import SignUpCandidate from "./ui/SignUpCandidate";
 import SignUpHr from "./ui/SignUpHr";
-import {TableMain} from "./ui/Table_main";
-import {Table_second2} from "./ui/Table_second2";
-import {Shedule} from "./ui/Shedule";
-
-import AlertDialog from "./ui/popup/popap_1";
-import FormDialog from "./ui/popup/popap_2";
+import {Resume} from "./ui/Resume";
 import {Chat} from "./ui/Messanger";
-import {TestServerConnect} from "./ui/test_server_coonect";
 import {Videochat} from "./ui/videchat/App";
 
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import {Main} from "./ui/Main";
 import {ToastContainer} from "react-toastify";
 import {PersonalArea} from "./ui/PersonalArea";
+import {Vacancy} from "./ui/Vacancy";
+
 export const  App=(props:any) =>{
     return (
         <>
@@ -36,8 +32,19 @@ export const  App=(props:any) =>{
                         return <SignIn user_id={props.state.user.user_data.user_id}/>
                     }}/>{/*нез  */}
 
-                    <Route exact path="/vacancies" component={TableMain} />{/*нез канд HR*/}
-                    <Route exact path="/candidates" component={TableMain} />
+
+                    <Route exact path="/vacancies" render={(e)=>{
+                        return <Vacancy headers={props.state.main_table.headers}
+                                          data={props.state.main_table.data}/>
+                    }}/>
+                    <Route exact path="/candidates" render={(e)=>{
+                        return <Resume headers={props.state.main_table.headers}
+                                       changeSelectedId={props.changeSelectedId}
+                                       data={props.state.main_table.data}
+                                       user_id={props.state.user.user_data.user_id}
+                                       selected_id={props.state.main_table.selected_id}
+                                       vacancy={props.state.user.vacancy}/>
+                    }}/>
 
                     <Route exact path="/videochat" component={Videochat}/>{/*канд */}
                     <Route exact path="/personal_area" render={(e)=>{
@@ -48,6 +55,7 @@ export const  App=(props:any) =>{
                         return <PersonalArea part={e.match.params.part}
                                              user_data={props.state.user.user_data}
                                              type={props.state.user.user_data.type}
+                                             vacancy={props.state.user.vacancy}
                                              user_id={props.state.user.user_data.user_id}/>
                     }}/>{/*канд hr*/}
                     <Route exact path="/chat" component={Chat}/>{/*канд hr*/}

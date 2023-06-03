@@ -150,6 +150,20 @@ export const resume={
                 toast.error('Ошибка');
             })
     },
+    get_resume(count:number){
+        axios.post('http://localhost:3001/api/get_resume',{
+            count:count,
+        })
+            .then(function (response) {
+                store._state.main_table.data=response.data.result
+                store._state.main_table.headers=response.data.header
+                store.render()
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
 }
 export const vacancy={
     create_vacancy(form_data:any,user_id:string){
@@ -172,6 +186,53 @@ export const vacancy={
         })
             .then(function (response) {
                 toast.info('сохранено')
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    get_vacancy(count:number){
+        axios.post('http://localhost:3001/api/get_vacancy',{
+            count:count,
+        })
+            .then(function (response) {
+
+                store._state.main_table.data=response.data.result
+                store._state.main_table.headers=response.data.header
+                store.render()
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    get_user_vacancy(){
+        axios.post('http://localhost:3001/api/get_user_vacancy',{
+            user_id:store._state.user.user_data.user_id,
+        })
+            .then(function (response) {
+                console.log(response.data)
+                store._state.user.vacancy=response.data.result
+                store.render()
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+
+}
+
+export const commonVR={
+    invite_user(resume_id:number, vacancy_id:number){
+        axios.post('http://localhost:3001/api/invite_user',{
+            resume_id:resume_id,
+            vacancy_id:vacancy_id,
+        })
+            .then(function (response) {
+                console.log(response.data)
+                toast.info('Отправленно!');
             })
             .catch(function (error) {
                 console.log(error);

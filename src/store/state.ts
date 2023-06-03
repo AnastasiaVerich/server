@@ -52,13 +52,16 @@ let store = {
                 job_title:'',
                 organization:'',
             }],
-
+            vacancy:[],
+            resume:[],
         },
 
         main_table:{
             filter:{},
-            data_th:[],
-            data_tr:[],
+            headers:[],
+            data:[],
+
+            selected_id:null,
 
            /* cv:[{
                 cv_id:'',
@@ -164,6 +167,7 @@ let store = {
                 recording_id:'',
             }],
         },
+
 
         recording:{
             data:[],
@@ -410,6 +414,7 @@ let store = {
         })
         store.render()
     },
+
     return_initial_state_object(prev_state:any, new_state:any) {
         Object.keys(new_state).map(el=>{
             if(el in prev_state){
@@ -422,7 +427,11 @@ let store = {
         this._state.generic.auth_state = new_state
         store.render()
     },
-
+    changeSelectedId(id:number){
+        // @ts-ignore
+        this._state.main_table.selected_id = id
+        this.render()
+    },
 
 
 

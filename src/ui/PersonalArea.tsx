@@ -13,38 +13,27 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
-import {generic} from "../api/api";
+import {generic, vacancy} from "../api/api";
 import TextField from "@mui/material/TextField";
 import {toast} from "react-toastify";
-import {CreateResume} from "./pop-up/create_resume";
-import {CreateVacancy} from "./pop-up/create_vacancy";
-import {CreateInterviewQuestions} from "./pop-up/create_interview_questions";
+import {Schedule} from "./personal_area/Schedule";
+import {Vacancy} from "./personal_area/Vacancy";
+import {Resume} from "./personal_area/Resume";
+import {InterviewQuestions} from "./personal_area/InterviewQuestions";
 
 const drawerWidth = 240;
 
 export const PersonalArea = (props: any) => {
-    const [openCreateResume, setOpenCreateResume] = React.useState(false);
-    const [openCreateVacancy, setOpenCreateVacancy] = React.useState(false);
-    const [openCreateInterviewQuestions , setOpenCreateInterviewQuestions ] = React.useState(false);
-
-    const handleClickOpenCreateResume = () => {
-        setOpenCreateResume(true);
-    };
-
-    const handleClickOpenCreateVacancy = () => {
-        setOpenCreateVacancy(true);
-    };
-    const handleClickOpenCreateInterviewQuestions  = () => {
-        setOpenCreateInterviewQuestions (true);
-    };
-    let menu: { label: string, link: string }[] = [{label: '', link: ''}]
-    let under_menu: { label: string, link: string }[] = [{label: '', link: ''}]
+    let menu: { label: string, link: string,request?:any }[] = [{label: '', link: ''}]
+    let under_menu: { label: string, link: string,request?:any }[] = [{label: '', link: ''}]
     if (props.type === 'candidate') {
-        menu = [{label: 'Резюме', link: '/personal_area/resume'}]
+        menu = [{label: 'Резюме', link: '/personal_area/resume'}
+            , {label: 'Календарь', link: '/personal_area/calendar'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
     } else if (props.type === 'hr') {
-        menu = [{label: 'Вакансии', link: '/personal_area/vacancy'}
-            ,{label: 'Интервью-вопросы', link: '/personal_area/interview-questions'}]
+        menu = [{label: 'Вакансии', link: '/personal_area/vacancy', request:()=>{vacancy.get_user_vacancy()}}
+            , {label: 'Интервью-вопросы', link: '/personal_area/interview-questions'}
+            , {label: 'Календарь', link: '/personal_area/calendar'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
     }
     const changePassword = (event: React.FormEvent<HTMLFormElement>) => {
@@ -83,7 +72,11 @@ export const PersonalArea = (props: any) => {
                     <List>
                         {menu.map((element, index) => (
                             <Link to={element.link}>
-                                <ListItem key={element.label} disablePadding>
+                                <ListItem key={element.label} disablePadding   onClick={()=>{
+                                    if('request' in element){
+                                        element.request()
+                                    }
+                                }}>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
@@ -98,7 +91,11 @@ export const PersonalArea = (props: any) => {
                     <List>
                         {under_menu.map((element, index) => (
                             <Link to={element.link}>
-                                <ListItem key={element.label} disablePadding>
+                                <ListItem key={element.label} disablePadding   onClick={()=>{
+                                    if('request' in element){
+                                        element.request()
+                                    }
+                                }}>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
@@ -196,53 +193,18 @@ export const PersonalArea = (props: any) => {
 
 
             </Box>}
-            {props.part === 'resume' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{mt: 3, mb: 2}}
-                    onClick={handleClickOpenCreateResume}
-                >
-                    Создать резюме
-                </Button>
-                <CreateResume open={openCreateResume}
-                              user_id={props.user_id}
-                              user_data={props.user_data}
-                              setOpen={setOpenCreateResume}/>
-
-            </Box>}
-            {props.part === 'vacancy' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{mt: 3, mb: 2}}
-                    onClick={handleClickOpenCreateVacancy}
-                >
-                    Создать Вакансию
-                </Button>
-                <CreateVacancy open={openCreateVacancy}
-                              user_id={props.user_id}
-                              user_data={props.user_data}
-                              setOpen={setOpenCreateVacancy}/>
-
-            </Box>}
-            {props.part === 'interview-questions' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{mt: 3, mb: 2}}
-                    onClick={handleClickOpenCreateInterviewQuestions }
-                >
-                    Создать интервью-вопросы
-                </Button>
-                <CreateInterviewQuestions open={openCreateInterviewQuestions }
-                              user_id={props.user_id}
-                              user_data={props.user_data}
-                              setOpen={setOpenCreateInterviewQuestions }/>
-
+            {props.part === 'resume'
+                && <Resume user_id={props.user_id}
+                           user_data={props.user_data}/>}
+            {props.part === 'vacancy'
+                && <Vacancy user_id={props.user_id}
+                            vacancy={props.vacancy}
+                            user_data={props.user_data}/>}
+            {props.part === 'interview-questions'
+                && <InterviewQuestions user_id={props.user_id}
+                                       user_data={props.user_data}/>}
+            {props.part === 'calendar' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <Schedule/>
             </Box>}
         </Box>
     );

@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 
 const columns: GridColDef[] = [
    // { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'Имя', width: 130 },
+    { field: 'firstName', headerName: 'Имя', editable:false},
     { field: 'lastName', headerName: 'Фамилия', width: 130 },
     {
         field: 'age',
@@ -35,7 +35,7 @@ const rows = [
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export  function TableMain() {
+export  const Vacancy=(props:any) =>{
 
     const [paginationModel, setPaginationModel] = React.useState({
         pageSize: 50,
@@ -62,8 +62,14 @@ export  function TableMain() {
                 }}
                 paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
-                rows={rows}
-                columns={columns}
+                rows={props.data?props.data:rows}
+                columns={props.headers?props.headers:columns}
+                onRowClick={(params, event, details)=>{
+                    console.log(params.row.resume_id)
+                    console.log(event)
+                    console.log(details)
+                }}
+
                 slots={{
                     toolbar: GridToolbar,
                 }}

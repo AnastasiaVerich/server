@@ -5,3 +5,17 @@
 *{
   box-sizing: border-box;
 }
+.text_ellipsis_box {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 20px;
+  display: -webkit-box;
+  overflow-wrap: break-word;
+}
+.css-1rv3ei8-MuiFormControl-root-MuiTextField-root{
+  width: 45%!important;
+  min-width: 45%!important;
+  max-width: 45%!important;
+}

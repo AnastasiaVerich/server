@@ -17,7 +17,7 @@ import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {Link} from "react-router-dom";
-import {generic} from "../api/api";
+import {generic, resume, vacancy} from "../api/api";
 
 
 
@@ -28,21 +28,32 @@ export const Header = (props:any) => {
 
 
 
-    let menu: Array<{label:string,link:string}> =[{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}]
+    let menu: Array<{label:string,link:string, request?:any}> =[{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}]
     let user_menu: Array<{label:string,link:string,func?:any}>= [{label:'Вход | Регистрация',link:'/login'}]
     let logo = 'EasyWork'
 
     if (props.auth_state === 'unlogged') {
-        menu = [{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}];
+        menu = [{label:'Вакансии',link:'/vacancies', request:()=>{vacancy.get_vacancy(100)}},
+            {label:'Кандидаты',link:'/candidates', request:()=>{resume.get_resume(100)}},
+        ];
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
     } else if (props.auth_state === 'hr') {
-        menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Кандидаты',link:'/candidates'}, {label:'Видеочат',link:'/videochat'}];
-        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout', func:logout}];
+        menu = [{label:'Вакансии',link:'/vacancies', request:()=>{vacancy.get_vacancy(100)}},
+            {label:'Кандидаты',link:'/candidates', request:()=>{resume.get_resume(100)}},
+            {label:'Видеочат',link:'/videochat'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'},
+            {label:'Выход',link:'/logout', func:logout}];
     } else if (props.auth_state === 'candidate') {
-        menu = [{label:'Вакансии',link:'/vacancies'}, {label:'Избранное',link:'/favorites'}, {label:'Видеочат',link:'/videochat'}];
-        user_menu = [{label:'Личный кабинет',link:'/personal_area'}, {label:'Выход',link:'/logout', func:logout}];
+        menu = [{label:'Вакансии',link:'/vacancies', request:()=>{vacancy.get_vacancy(100)}},
+            {label:'Избранное',link:'/favorites'},
+            {label:'Видеочат',link:'/videochat'}];
+        user_menu = [{label:'Личный кабинет',link:'/personal_area'},
+            {label:'Выход',link:'/logout', func:logout}];
     } else if (props.auth_state === 'test') {
-        menu = [{label:'Главная',link:'/'},{label:'Вакансии',link:'/vacancies'},{label:'Кандидаты',link:'/candidates'},{label:'Видеочат',link:'/videochat'}];
+        menu = [{label:'Главная',link:'/'},
+            {label:'Вакансии',link:'/vacancies', request:()=>{vacancy.get_vacancy(100)}},
+            {label:'Кандидаты',link:'/candidates', request:()=>{resume.get_resume(100)}},
+            {label:'Видеочат',link:'/videochat'}];
         user_menu = [{label:'Вход | Регистрация',link:'/login'}];
     }
 
@@ -122,8 +133,14 @@ export const Header = (props:any) => {
                             }}
                         >
                             {menu.map((page,i) => (
-                                <MenuItem key={i} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center"><Link to={page.link}>{page.label}</Link></Typography>
+                                <MenuItem key={i} onClick={handleCloseNavMenu} >
+                                    <Typography textAlign="center"  onClick={()=>{
+                                        if('request' in page){
+                                            page.request()
+                                        }
+                                    }}>
+                                        <Link to={page.link}>{page.label}</Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -136,7 +153,11 @@ export const Header = (props:any) => {
                                 onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                <Link to={page.link}>{page.label}</Link>
+                                <Link to={page.link} onClick={()=>{
+                                    if('request' in page){
+                                        page.request()
+                                    }
+                                }}>{page.label}</Link>
                             </Button>
                         ))}
                     </Box>
@@ -172,7 +193,7 @@ export const Header = (props:any) => {
                                     }}
                                     sx={{my: 2, color: 'white', display: 'block'}}
                                 >
-                                    <Link to={page.link}>{page.label}</Link>
+                                    <Link to={page.link} >{page.label}</Link>
                                 </Button>
                             ))}
                         </Box>

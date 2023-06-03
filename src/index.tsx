@@ -8,18 +8,19 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-let rerenderentarettreee = (state:any) => {
+let rerenderentare_tree = (state:any) => {
     root.render(
         <React.StrictMode>
             <App state={state}
                  render={store.render.bind(store)}
                  change_auth_state={store.change_auth_state.bind(store)}
+                 changeSelectedId={store.changeSelectedId.bind(store)}
             />
         </React.StrictMode>
     )
 
 }
-rerenderentarettreee(store.getState());
+rerenderentare_tree(store.getState());
 
-store.subscribe(rerenderentarettreee);
+store.subscribe(rerenderentare_tree);
 
