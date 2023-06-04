@@ -9,7 +9,7 @@ export const Vacancy = (props:any)=>{
     const handleClickOpenCreateVacancy = () => {
         setOpenCreateVacancy(true);
     };
-    console.log(props.vacancy)
+    console.log(props.user_vacancy)
     return(
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
             <Button
@@ -27,7 +27,7 @@ export const Vacancy = (props:any)=>{
                            setOpen={setOpenCreateVacancy}/>
             <Box >
                 <div style={{display:"grid", gridTemplateColumns:'repeat(auto-fill, minmax(275px, 1fr))', gridGap:'2vw'}}>
-                    {props.vacancy.map((x:any, index:number)=>{
+                    {props.user_vacancy.map((x:any, index:number)=>{
                             return <>
                                 <OneItemVacancy data={x}/>
                                 </>

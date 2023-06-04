@@ -8,8 +8,9 @@ export const generic ={
             type:type,
         })
             .then(function (response) {
-                store._state.user.user_data = form_data
                 store.update_state_object(store._state.user.user_data,form_data)
+                store._state.user.user_data.type=type
+                store._state.user.user_data.schedule_id=response.data.schedule_id
                 store.update_state_object(store._state.user.user_hr_organization[0],form_data)
                 if(type==='candidate'){
                     store.change_auth_state('candidate')
@@ -17,6 +18,11 @@ export const generic ={
                     store.change_auth_state('hr')
                 }
 
+                vacancy.get_vacancy(1000)
+                vacancy.get_interview_questions()
+                resume.get_resume(1000)
+                commonVR.get_all_invite()
+                schedule.get_all_events()
                 window.location.href  = 'http://localhost:3000/#/'
                 toast.info('Info message')
             })
@@ -39,6 +45,11 @@ export const generic ={
                 }else if(response.data.user_data.type === 'hr'){
                     store.change_auth_state('hr')
                 }
+                vacancy.get_vacancy(1000)
+                vacancy.get_interview_questions()
+                resume.get_resume(1000)
+                commonVR.get_all_invite()
+                schedule.get_all_events()
                 window.location.href  = 'http://localhost:3000/#/'
                 toast.info('ЗАШЕЛ')
             })
@@ -143,6 +154,7 @@ export const resume={
             user_id:user_id,
         })
             .then(function (response) {
+                resume.get_resume(1000)
                 toast.info('сохранено')
             })
             .catch(function (error) {
@@ -155,7 +167,7 @@ export const resume={
             count:count,
         })
             .then(function (response) {
-                store._state.main_table.data=response.data.result
+                store._state.resume=response.data.result
                 store._state.main_table.headers=response.data.header
                 store.render()
             })
@@ -173,6 +185,7 @@ export const vacancy={
         })
             .then(function (response) {
                 toast.info('сохранено')
+                vacancy.get_vacancy(1000)
             })
             .catch(function (error) {
                 console.log(error);
@@ -185,6 +198,7 @@ export const vacancy={
             user_id:user_id,
         })
             .then(function (response) {
+                vacancy.get_interview_questions()
                 toast.info('сохранено')
             })
             .catch(function (error) {
@@ -198,7 +212,7 @@ export const vacancy={
         })
             .then(function (response) {
 
-                store._state.main_table.data=response.data.result
+                store._state.vacancy=response.data.result
                 store._state.main_table.headers=response.data.header
                 store.render()
             })
@@ -207,13 +221,13 @@ export const vacancy={
                 toast.error('Ошибка');
             })
     },
-    get_user_vacancy(){
-        axios.post('http://localhost:3001/api/get_user_vacancy',{
-            user_id:store._state.user.user_data.user_id,
+    get_interview_questions(){
+        axios.post('http://localhost:3001/api/get_interview_questions',{
+
         })
             .then(function (response) {
-                console.log(response.data)
-                store._state.user.vacancy=response.data.result
+
+                store._state.interview_questions=response.data.data
                 store.render()
             })
             .catch(function (error) {
@@ -221,7 +235,6 @@ export const vacancy={
                 toast.error('Ошибка');
             })
     },
-
 }
 
 export const commonVR={
@@ -231,8 +244,72 @@ export const commonVR={
             vacancy_id:vacancy_id,
         })
             .then(function (response) {
-                console.log(response.data)
+
+                commonVR.get_all_invite()
                 toast.info('Отправленно!');
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    get_all_invite(){
+        axios.post('http://localhost:3001/api/get_vacancy_with_resume_connection',{
+
+        })
+            .then(function (response) {
+                store._state.vacancy_with_cv_connection=response.data.data
+                store.render()
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+}
+
+export const schedule = {
+    create_event(date:string, duration:number, connection_vacancy_with_cv_id:number, schedule_id:number){
+        axios.post('http://localhost:3001/api/create_event',{
+            date:date,
+            duration:duration,
+            connection_vacancy_with_cv_id:connection_vacancy_with_cv_id,
+            schedule_id:schedule_id,
+        })
+            .then(function (response) {
+                schedule.get_all_events()
+                commonVR.get_all_invite()
+                toast.info('Создано!');
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    update_event(date:string, duration:number, connection_vacancy_with_cv_id:number, schedule_id:number){
+        axios.post('http://localhost:3001/api/create_event',{
+            date:date,
+            duration:duration,
+            connection_vacancy_with_cv_id:connection_vacancy_with_cv_id,
+            schedule_id:schedule_id,
+        })
+            .then(function (response) {
+                schedule.get_all_events()
+                commonVR.get_all_invite()
+                toast.info('Создано!');
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.error('Ошибка');
+            })
+    },
+    get_all_events(){
+        axios.post('http://localhost:3001/api/get_all_events',{
+
+        })
+            .then(function (response) {
+                store._state.schedule_events_data=response.data.data
+                store.render()
             })
             .catch(function (error) {
                 console.log(error);

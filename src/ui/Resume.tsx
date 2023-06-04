@@ -64,12 +64,12 @@ export const Resume = (props: any) => {
                     }}
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
-                    rows={props.data ? props.data : []}
+                    rows={props.resume ? props.resume : []}
                     columns={props.headers ? props.headers : []}
                     onRowClick={(params, event, details) => {
                         console.log(params.row.resume_id)
                         props.changeSelectedId(params.row.resume_id)
-                        setSelectedResume(props.data.find((x:any)=>x.resume_id === params.row.resume_id))
+                        setSelectedResume(props.resume.find((x:any)=>x.resume_id === params.row.resume_id))
                     }}
                     slots={{
                         toolbar: GridToolbar,
@@ -161,7 +161,7 @@ export const Resume = (props: any) => {
                                 }}
 
                                 label="Вакансия">
-                                {props.vacancy.map((x:any)=>{
+                                {props.user_vacancy.map((x:any)=>{
                                     return <MenuItem value={x.vacancy_id}>{x.label}</MenuItem>
                                 })}
                             </Select>

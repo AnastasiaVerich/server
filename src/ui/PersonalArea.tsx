@@ -31,7 +31,7 @@ export const PersonalArea = (props: any) => {
             , {label: 'Календарь', link: '/personal_area/calendar'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
     } else if (props.type === 'hr') {
-        menu = [{label: 'Вакансии', link: '/personal_area/vacancy', request:()=>{vacancy.get_user_vacancy()}}
+        menu = [{label: 'Вакансии', link: '/personal_area/vacancy'}
             , {label: 'Интервью-вопросы', link: '/personal_area/interview-questions'}
             , {label: 'Календарь', link: '/personal_area/calendar'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
@@ -198,13 +198,13 @@ export const PersonalArea = (props: any) => {
                            user_data={props.user_data}/>}
             {props.part === 'vacancy'
                 && <Vacancy user_id={props.user_id}
-                            vacancy={props.vacancy}
+                            user_vacancy={props.user_vacancy}
                             user_data={props.user_data}/>}
             {props.part === 'interview-questions'
                 && <InterviewQuestions user_id={props.user_id}
                                        user_data={props.user_data}/>}
             {props.part === 'calendar' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Schedule/>
+                <Schedule user_vacancy={props.user_vacancy}/>
             </Box>}
         </Box>
     );

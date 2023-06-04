@@ -22,17 +22,48 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import appointments from "./data";
 import {useState} from "react";
+import store from '../../store/state'
+import {schedule} from "../../api/api";
 
 
-
-export const Schedule = () => {
+export const Schedule = (props:any) => {
     const [currentDate, setCurrentDate] = React.useState<SchedulerDateTime>(new Date());
-    const [state, setState] = useState({data: appointments, currentDate: new Date()})
+    // @ts-ignore
+    const [state, setState] = useState({data: store._state.schedule_events_data.map(({ date, duration,schedule_one_event_data_id, ...restArgs }) => {
+            return {
+                startDate:new Date(date),
+                endDate:new Date(new Date(date).setMinutes(new Date().getMinutes() + duration)),
+                id:schedule_one_event_data_id,
+                title:'Собеседование',
+                date,
+                duration,
+                schedule_one_event_data_id,
+                ...restArgs,
+            };
 
+
+        }), currentDate: new Date()})
+    console.log(state.data)
 
    function commitChanges({ added, changed, deleted }:any) {
+        console.log(added)
         console.log(changed)
         console.log(deleted)
+
+       if(added !== undefined){
+           console.log(added.startDate)
+           console.log(added.duration)
+           console.log(added.connection_vacancy_with_cv_id)
+           console.log(added.duration)
+           schedule.create_event(added.startDate
+               ,Number(added.duration)
+               ,added.connection_vacancy_with_cv_id
+               ,store._state.user.user_data.schedule_id)
+       } if(changed !== undefined){
+
+       } if (deleted !== undefined){
+
+       }
         // @ts-ignore
        setState((state) => {
             let { data } = state;
@@ -109,16 +140,16 @@ const NullField = (props:any) => {
 
 const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }:any) => {
 
+    const [vacancyID, setVacancyID] = useState<number|string>('')
+    const [resumeID, setResumeID] = useState<number|string>('')
 
-
+    console.log(appointmentData)
     return (<>
-
         <AppointmentForm.BasicLayout
             appointmentData={appointmentData}
             onFieldChange={onFieldChange}
             {...restProps}
         >
-
             <AppointmentForm.Label type={'titleLabel'} text={'Детали:'} style={{fontWeight:700, fontSize: '19px', paddingBottom:'8px'}}/>
             <AppointmentForm.DateEditor
                 locale={'ru-RU'}
@@ -128,7 +159,6 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }:any) => {
 
                 }}
             />
-
             <AppointmentForm.TextEditor
                 style={{width: '45%', marginTop: '16px', marginBottom: '8px', marginLeft:'10%'}}
                 value={appointmentData.duration}
@@ -147,21 +177,31 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }:any) => {
                                    text={'Выберите кандидата:'}/>
             <AppointmentForm.Select
                 style={{width: '45%', marginTop: '16px', marginBottom: '8px', marginLeft:'0'}}
-                value={appointmentData.vacancy_id}
+                value={vacancyID}
                 onValueChange={(nextValue)=>{
-                    onFieldChange({ vacancy_id: nextValue,  });
+                    setVacancyID( nextValue);
                 }}
-                availableOptions={[{text:'10', id:1},{text:'50', id:2}]}
+                availableOptions={store._state.vacancy.map((x:any)=>{return{text:x.label, id:x.vacancy_id}})}
                 type={'outlinedSelect'}
             >
             </AppointmentForm.Select>
             <AppointmentForm.Select
                 style={{width: '45%', marginTop: '16px', marginBottom: '8px', marginLeft:'10%'}}
-                value={appointmentData.user_id}
+                value={resumeID}
                 onValueChange={(nextValue)=>{
-                    onFieldChange({ user_id: nextValue,  });
-                }}
-                availableOptions={[{text:'10', id:1},{text:'50', id:2}]}
+                    setResumeID(nextValue);
+                    let connection_vacancy_with_cv = store._state.vacancy_with_cv_connection.find((x:any)=>x.vacancy_id === vacancyID && x.resume_id===nextValue)
+                    // @ts-ignore
+                    onFieldChange({connection_vacancy_with_cv_id: connection_vacancy_with_cv.vacancy_with_resume_connection_id });}}
+                availableOptions={store._state.vacancy_with_cv_connection
+                    .filter((x:any)=>x.vacancy_id === vacancyID)
+                    .map((x:any)=>{
+                        let user:any = store._state.resume.find((z:any)=>z.resume_id === x.resume_id)
+                        return {
+                            text: user.surname
+                            , id:x.resume_id
+                        }
+                    })}
                 type={'outlinedSelect'}
             >
             </AppointmentForm.Select>

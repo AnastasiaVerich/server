@@ -35,15 +35,15 @@ export const  App=(props:any) =>{
 
                     <Route exact path="/vacancies" render={(e)=>{
                         return <Vacancy headers={props.state.main_table.headers}
-                                          data={props.state.main_table.data}/>
+                                        vacancy={props.state.vacancy}/>
                     }}/>
                     <Route exact path="/candidates" render={(e)=>{
                         return <Resume headers={props.state.main_table.headers}
                                        changeSelectedId={props.changeSelectedId}
-                                       data={props.state.main_table.data}
+                                       resume={props.state.resume}
                                        user_id={props.state.user.user_data.user_id}
                                        selected_id={props.state.main_table.selected_id}
-                                       vacancy={props.state.user.vacancy}/>
+                                       user_vacancy={props.state.vacancy}/>
                     }}/>
 
                     <Route exact path="/videochat" component={Videochat}/>{/*канд */}
@@ -55,7 +55,7 @@ export const  App=(props:any) =>{
                         return <PersonalArea part={e.match.params.part}
                                              user_data={props.state.user.user_data}
                                              type={props.state.user.user_data.type}
-                                             vacancy={props.state.user.vacancy}
+                                             user_vacancy={props.state.vacancy}
                                              user_id={props.state.user.user_data.user_id}/>
                     }}/>{/*канд hr*/}
                     <Route exact path="/chat" component={Chat}/>{/*канд hr*/}

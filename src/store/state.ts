@@ -4,6 +4,7 @@ let store = {
             user_data: {
                 type:'',
                 user_id:'',
+                schedule_id:0,
 
                 surname: '',
                 name: '',
@@ -24,11 +25,6 @@ let store = {
                 organization_label:'',
                 legal_address:'',
             }],
-          /*  user_hr_organization_mediator:[{
-                user_hr_organization_mediator_id:'',
-                user_id:'',
-                organization_id:'',
-            }],*/
 
             user_candidate_languages_data:[{
                 user_candidate_languages_data_id:'',
@@ -52,121 +48,18 @@ let store = {
                 job_title:'',
                 organization:'',
             }],
-            vacancy:[],
-            resume:[],
         },
 
         main_table:{
             filter:{},
             headers:[],
-            data:[],
-
             selected_id:null,
-
-           /* cv:[{
-                cv_id:'',
-                user_id:'',
-                nationality:'',
-                city:'',
-                job_title:'',
-                salary:'',
-                skills:[],
-                note:'',
-                gender:'',
-                employment_type:'',
-            }],
-            cv_language_mediator:[{
-                cv_language_mediator_id:'',
-                cv_id:'',
-                languages_data_id:'',
-            }],
-            cv_education_mediator:[{
-                cv_education_mediator_id:'',
-                cv_id:'',
-                education_data_id:'',
-            }],
-            cv_experience_mediator:[{
-                cv_experience_mediator_id:'',
-                cv_id:'',
-                experience_data_id:'',
-            }],
-
-            vacancy:[{
-                vacancy_id:'',
-                owner_id:'',
-                job_title:'',
-                experience:'',
-                city:'',
-                salary:'',
-                skills:'',
-                note:'',
-                interview_questions_id:'',
-                employment_type:'',
-                paragraph_data_id:'',
-            }],
-            vacancy_languages_data:[{
-                vacancy_languages_data_id:'',
-                language:'',
-                level:'',
-                vacancy_id:'',
-            }],
-            vacancy_paragraph_data:[{
-                vacancy_paragraph_data_id:'',
-                title:'',
-                text:'',
-            }],
-            vacancy_paragraph_mediator:[{
-                vacancy_paragraph_mediator_id:'',
-                vacancy_id:'',
-                paragraph_id:'',
-            }],*/
-
-            vacancy_with_cv_connection:[{
-                vacancy_with_cv_connection_id:'',
-                vacancy_id:'',
-                cv_id:'',
-            }],
-
-
         },
-
-        interview_questions:{
-            interview_questions_data:{
-                interview_questions_id:'',
-                owner_id:'',
-                title:'',
-            },
-            interview_questions_one_data:[{
-                interview_questions_one_data_id:'',
-                interview_questions_id:'',
-                label:'',
-                prefer_answer:'',
-                items:[],
-                type:'',
-            }],
-            interview_questions_answer:[{
-                interview_questions_answer_id:'',
-                vacancy_with_cv_connection_id:'',
-                interview_questions_one_data_id:'',
-                answer:'',
-            }],
-        },
-
-        schedule:{
-            /*schedule_data:{
-                schedule_id:'',
-                owner_id:'',
-            },*/
-            schedule_one_event_data:[{
-                schedule_one_event_data_id:'',
-                schedule_id:'',
-                date:'',
-                time:'',
-                duration:'',
-                connection_vacancy_with_cv_id:'',
-                recording_id:'',
-            }],
-        },
+        vacancy:[],
+        resume:[],
+        vacancy_with_cv_connection:[],
+        interview_questions:[],
+        schedule_events_data:[],
 
 
         recording:{
@@ -174,26 +67,6 @@ let store = {
             recording_data:[{
                 recording_id:'',
                 recording_url:'',
-            }],
-        },
-
-        chat:{
-            chat_data:[{
-                chat_id:'',
-                connection_vacancy_with_cv_id:'',
-            }],
-            chat_members:[{
-                chat_members_id:'',
-                chat_id:'',
-                user_id:'',
-            }],
-            chat_one_message_data:[{
-                chat_one_message_data_id:'',
-                chat_id:'',
-                sender_id:'',
-                date:'',
-                text:'',
-                status:'',
             }],
         },
 

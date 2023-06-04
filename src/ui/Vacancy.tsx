@@ -62,7 +62,7 @@ export  const Vacancy=(props:any) =>{
                 }}
                 paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
-                rows={props.data?props.data:rows}
+                rows={props.vacancy?props.vacancy:rows}
                 columns={props.headers?props.headers:columns}
                 onRowClick={(params, event, details)=>{
                     console.log(params.row.resume_id)
