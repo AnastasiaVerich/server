@@ -131,7 +131,7 @@ export const PersonalArea = (props: any) => {
                 {props.part === 'setting' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
                     <Button
                         type="submit"
-                        fullWidth
+
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                         onClick={() => {
@@ -172,7 +172,7 @@ export const PersonalArea = (props: any) => {
                         />
                         <Button
                             type="submit"
-                            fullWidth
+
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
 

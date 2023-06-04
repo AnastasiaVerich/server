@@ -58,7 +58,7 @@ export const CreateInterviewQuestions = (props: any) => {
                 <DialogTitle sx={{textAlign: 'center'}}>Создание интервью-вопросов</DialogTitle>
                 <DialogContent>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2}  sx={{justifyContent:'flex-end'}}>
                             <Grid item xs={12} sm={12}>
                                 <TextField
                                     required
@@ -81,7 +81,7 @@ export const CreateInterviewQuestions = (props: any) => {
                                     <Question index={x}/>
                                 )
                             })}
-                            <Grid item xs={12} sm={12} sx={{textAlign:'center'}}>
+
                                 <Button
 
                                     variant="contained"
@@ -90,28 +90,21 @@ export const CreateInterviewQuestions = (props: any) => {
                                 >
                                     +
                                 </Button>
-                            </Grid>
 
 
 
 
                         </Grid>
+                        <Button onClick={handleClose} sx={{mt: 3, mb: 2}}>Отмена</Button>
                         <Button
                             type="submit"
                             variant="contained"
-
-
+                            sx={{mt: 3, mb: 2, float:'right'}}
                         >
                             Сохранить
                         </Button>
                     </Box>
                 </DialogContent>
-                <DialogActions >
-                    <Button onClick={handleClose}>Cancel</Button>
-
-                </DialogActions>
-
-
             </Dialog>
         </div>
     );

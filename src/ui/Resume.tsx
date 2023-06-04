@@ -64,6 +64,64 @@ export const Resume = (props: any) => {
                                 `${from} - ${to} из ${count}`,
                             labelRowsPerPage: 'Количество строк:'
                         },
+                        toolbarDensity: 'Размер строк',
+                        toolbarDensityCompact: 'Маленький',
+                        toolbarDensityStandard: 'Средний',
+                        toolbarDensityComfortable: 'Большой',
+
+                        toolbarColumns: 'Колонки',
+                        columnsPanelTextFieldLabel: 'Найти колоку',
+                        columnsPanelTextFieldPlaceholder: 'Название колонки',
+                        columnsPanelDragIconLabel: 'Сбросить',
+                        columnsPanelShowAllButton: 'Показать все',
+                        columnsPanelHideAllButton: 'Спрятать все',
+
+                        toolbarFilters: 'Фильтра',
+                        filterPanelAddFilter: 'Добавить фильтр',
+                        filterPanelRemoveAll: 'Удалить все',
+                        filterPanelDeleteIconLabel: 'Удалить',
+                        filterPanelLogicOperator: 'Логический оператор',
+                        filterPanelOperator: 'Оператор',
+                        filterPanelOperatorAnd: 'И',
+                        filterPanelOperatorOr: 'Или',
+                        filterPanelColumns: 'Колонка',
+                        filterPanelInputLabel: 'Значение',
+                        filterPanelInputPlaceholder: 'Значение фильтра',
+
+                        filterOperatorContains: 'содержит',
+                        filterOperatorEquals: 'равен',
+                        filterOperatorStartsWith: 'начинается с',
+                        filterOperatorEndsWith: 'заканчивается на',
+                        filterOperatorIs: 'является ',
+                        filterOperatorNot: 'не является',
+                        filterOperatorAfter: 'после',
+                        filterOperatorOnOrAfter: 'после или включая',
+                        filterOperatorBefore: 'до',
+                        filterOperatorOnOrBefore: 'до или включая',
+                        filterOperatorIsEmpty: 'простой',
+                        filterOperatorIsNotEmpty: 'не простой',
+                        filterOperatorIsAnyOf: 'любой из',
+
+                        toolbarExport: 'Скачать',
+                        toolbarExportLabel: 'Скачать',
+                        toolbarExportCSV: 'Скачать как CSV',
+                        toolbarExportPrint: 'Печать',
+                        toolbarExportExcel: 'Скачать как Excel',
+
+                        footerRowSelected: (count) =>
+                            count !== 1
+                                ? `${count.toLocaleString()} строк выделено`
+                                : `${count.toLocaleString()} строка выделена`,
+
+                        columnMenuLabel: 'Меню',
+                        columnMenuShowColumns: 'Показать колонку',
+                        columnMenuManageColumns: 'Manage columns',
+                        columnMenuFilter: 'Фильтр',
+                        columnMenuHideColumn: 'Спрятать колонку',
+                        columnMenuUnsort: 'Не сортировать',
+                        columnMenuSortAsc: 'Сортировать по возр.',
+                        columnMenuSortDesc: 'Сортировать по убыв.',
+
                     }}
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}

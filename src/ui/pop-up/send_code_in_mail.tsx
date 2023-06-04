@@ -111,7 +111,7 @@ export const SendCodeInMail = (props: any) => {
                         </>}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Отмена</Button>
                     {(state === 'send_code' || state === 'send_in_email') && <Button onClick={send}>Отправить код</Button>}
                     {state === 'update_password' && <Button onClick={send}>Отправить</Button>}
                 </DialogActions>

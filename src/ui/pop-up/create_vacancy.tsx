@@ -64,8 +64,8 @@ export const CreateVacancy = (props: any) => {
                 <DialogTitle sx={{textAlign:'center'}}>Создание вакансии</DialogTitle>
                 <DialogContent>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12} sx={{justifyContent:'flex-end'}}>
+                        <Grid container spacing={2} sx={{justifyContent:'flex-end'}}>
+                            <Grid item xs={12} sm={12}>
                                 <TextField
                                     required
                                     fullWidth
@@ -186,7 +186,7 @@ export const CreateVacancy = (props: any) => {
 
 
 
-                        <Button onClick={handleClose} sx={{mt: 3, mb: 2}}>Cancel</Button>
+                        <Button onClick={handleClose} sx={{mt: 3, mb: 2}}>Отмена</Button>
                         <Button
                             type="submit"
                             variant="contained"

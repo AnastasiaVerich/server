@@ -79,8 +79,8 @@ export const CreateResume = (props: any) => {
                 <DialogTitle sx={{textAlign:'center'}}>Создание резюме</DialogTitle>
                 <DialogContent>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={4}>
+                        <Grid container spacing={2} sx={{justifyContent:'flex-end'}}>
+                            <Grid item xs={12} sm={4} >
                                 <TextField
                                     required
                                     fullWidth
@@ -163,7 +163,7 @@ export const CreateResume = (props: any) => {
                                 )
                             })}
                             <Button
-                                fullWidth
+
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
                                 onClick={() => setCountExperiencen(countExperience.concat([countExperience.length + 1]))}
@@ -182,7 +182,7 @@ export const CreateResume = (props: any) => {
                                 )
                             })}
                             <Button
-                                fullWidth
+
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
                                 onClick={() => setCountEducation(countEducation.concat([countEducation.length + 1]))}
@@ -210,7 +210,7 @@ export const CreateResume = (props: any) => {
                                 )
                             })}
                             <Button
-                                fullWidth
+
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
                                 onClick={() => setCountLanguage(countLanguage.concat([countLanguage.length + 1]))}
@@ -239,20 +239,17 @@ export const CreateResume = (props: any) => {
                             </Grid>
 
                         </Grid>
+                        <Button onClick={handleClose} sx={{mt: 3, mb: 2}}>Отмена</Button>
                         <Button
                             type="submit"
-                            fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 2, float:'right'}}
                         >
-                            Сохаранить
+                            Сохранить
                         </Button>
                     </Box>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
 
-                </DialogActions>
             </Dialog>
         </div>
     );

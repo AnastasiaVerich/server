@@ -41,7 +41,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
-                        Cancel
+                        Отмена
                     </Button>
                     <Button onClick={handleClose} color="primary">
                         Subscribe
