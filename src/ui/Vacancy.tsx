@@ -48,10 +48,16 @@ export  const Vacancy=(props:any) =>{
                    sx={{
                        height: 'calc(100vh - 68.5px)',
                        width: '100vw',
-                       display: 'flex',
-                       justifyContent: 'center',
-                       alignItems: 'center'
+
+                       padding:'50px',
+
                    }}>
+            <div style={{boxShadow: '0px 2px 20px 3px rgba(0,0,0,0.2)',
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'}}>
             <DataGrid
                 localeText={{
                     MuiTablePagination: {
@@ -75,6 +81,7 @@ export  const Vacancy=(props:any) =>{
                 }}
                 pageSizeOptions={[25, 50, 100]}
             />
+            </div>
         </Container>
     );
 }

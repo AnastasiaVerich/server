@@ -65,7 +65,7 @@ export const CreateVacancy = (props: any) => {
                 <DialogContent>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12}>
+                            <Grid item xs={12} sm={12} sx={{justifyContent:'flex-end'}}>
                                 <TextField
                                     required
                                     fullWidth
@@ -153,9 +153,9 @@ export const CreateVacancy = (props: any) => {
                                 )
                             })}
                             <Button
-                                fullWidth
+
                                 variant="contained"
-                                sx={{mt: 3, mb: 2}}
+                                sx={{mt: 3, mb: 2, ml:'15px'}}
                                 onClick={() => setCountLanguage(countLanguage.concat([countLanguage.length + 1]))}
                             >
                                 +
@@ -181,21 +181,22 @@ export const CreateVacancy = (props: any) => {
                                 />
                             </Grid>
 
+
                         </Grid>
+
+
+
+                        <Button onClick={handleClose} sx={{mt: 3, mb: 2}}>Cancel</Button>
                         <Button
                             type="submit"
-                            fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 2, float:'right'}}
                         >
-                            Сохаранить
+                            Сохранить
                         </Button>
                     </Box>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
 
-                </DialogActions>
             </Dialog>
         </div>
     );

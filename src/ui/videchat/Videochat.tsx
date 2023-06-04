@@ -1,16 +1,14 @@
-import Room from './pages/Room';
-import Main from './pages/Main';
-import NotFound404 from './pages/NotFound404';
+import Room from './Videochat_room';
+import Main from './Videochat_dont_exist';
 import React from "react";
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-export function Videochat() {
+export const  Videochat=()=> {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path='/room/:id' component={Room}/>
         <Route exact path='/' component={Main}/>
-        <Route component={NotFound404}/>
       </Switch>
     </BrowserRouter>
   );

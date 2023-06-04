@@ -85,7 +85,7 @@ export const Schedule = (props:any) => {
 
 
     return (
-        <Paper>{/* // @ts-ignore*/}
+        <Paper sx={{height: '100%'}}>{/* // @ts-ignore*/}
             <Scheduler
                 locale={"ru-RU"}
                 data={state.data}>

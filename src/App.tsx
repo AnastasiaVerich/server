@@ -7,7 +7,7 @@ import SignUpCandidate from "./ui/SignUpCandidate";
 import SignUpHr from "./ui/SignUpHr";
 import {Resume} from "./ui/Resume";
 import {Chat} from "./ui/Messanger";
-import {Videochat} from "./ui/videchat/App";
+import {Videochat} from "./ui/videchat/Videochat";
 
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import {Main} from "./ui/Main";

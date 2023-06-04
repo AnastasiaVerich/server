@@ -20,12 +20,13 @@ import {Schedule} from "./personal_area/Schedule";
 import {Vacancy} from "./personal_area/Vacancy";
 import {Resume} from "./personal_area/Resume";
 import {InterviewQuestions} from "./personal_area/InterviewQuestions";
+import Container from "@mui/material/Container";
 
 const drawerWidth = 240;
 
 export const PersonalArea = (props: any) => {
-    let menu: { label: string, link: string,request?:any }[] = [{label: '', link: ''}]
-    let under_menu: { label: string, link: string,request?:any }[] = [{label: '', link: ''}]
+    let menu: { label: string, link: string, request?: any }[] = [{label: '', link: ''}]
+    let under_menu: { label: string, link: string, request?: any }[] = [{label: '', link: ''}]
     if (props.type === 'candidate') {
         menu = [{label: 'Резюме', link: '/personal_area/resume'}
             , {label: 'Календарь', link: '/personal_area/calendar'}]
@@ -51,161 +52,151 @@ export const PersonalArea = (props: any) => {
         }
     };
     return (
-        <Box sx={{display: 'flex'}}>
-
-
-            <Drawer
-                variant="permanent"
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {
+        <Container maxWidth={false}
+                   sx={{
+                       height: 'calc(100vh - 68.5px)',
+                       width: '100vw',
+                       padding: '50px',
+                       display: 'flex'
+                   }}>
+            <div style={{
+                boxShadow: '0px 2px 20px 3px rgba(0,0,0,0.2)',
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+            }}>
+                <Drawer
+                    variant="permanent"
+                    sx={{
                         width: drawerWidth,
-                        boxSizing: 'border-box',
-                        position: 'relative',
-                        height: 'calc(100vh - 68.5px)'
-                    },
-                }}
-            >
-
-                <Box sx={{overflow: 'auto'}}>
-                    <List>
-                        {menu.map((element, index) => (
-                            <Link to={element.link}>
-                                <ListItem key={element.label} disablePadding   onClick={()=>{
-                                    if('request' in element){
-                                        element.request()
-                                    }
-                                }}>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                        </ListItemIcon>
-                                        <ListItemText primary={element.label}/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </Link>
-                        ))}
-                    </List>
-                    <Divider/>
-                    <List>
-                        {under_menu.map((element, index) => (
-                            <Link to={element.link}>
-                                <ListItem key={element.label} disablePadding   onClick={()=>{
-                                    if('request' in element){
-                                        element.request()
-                                    }
-                                }}>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                        </ListItemIcon>
-                                        <ListItemText primary={element.label}/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </Link>
-                        ))}
-                    </List>
-                </Box>
-            </Drawer>
-            {props.part === undefined && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Toolbar/>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                    enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                    Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                    Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                    nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                    leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                    feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                    consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                    sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-                    eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-                    neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-                    tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-                    sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-                    tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-                    gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                    et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-                    tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                    eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-                    posuere sollicitudin aliquam ultrices sagittis orci a.
-                </Typography>
-            </Box>}
-            {props.part === 'setting' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{mt: 3, mb: 2}}
-                    onClick={() => {
-                        generic.delete_user(props.user_id)
+                        flexShrink: 0,
+                        height: '100%',
+                        [`& .MuiDrawer-paper`]: {
+                            width: drawerWidth,
+                            boxSizing: 'border-box',
+                            position: 'relative',
+                            height: '100%'
+                        },
                     }}
                 >
-                    Удалить аккаунт
-                </Button>
 
-                <Box component="form" onSubmit={changePassword} noValidate sx={{mt: 1}}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="old_password"
-                        label="Старый пароль"
-                        name="old_password"
-                        autoComplete="old_password"
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="new_password"
-                        label="Новый пароль"
-                        type="password"
-                        id="new_password"
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="repeat_new_password"
-                        label="Повтор нового пароля"
-                        type="password"
-                        id="repeat_new_password"
-                    />
+                    <Box sx={{overflow: 'auto'}}>
+                        <List>
+                            {menu.map((element, index) => (
+                                <Link to={element.link}>
+                                    <ListItem key={element.label} disablePadding onClick={() => {
+                                        if ('request' in element) {
+                                            element.request()
+                                        }
+                                    }}>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                            </ListItemIcon>
+                                            <ListItemText primary={element.label} sx={{color: '#121212'}}/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                </Link>
+                            ))}
+                        </List>
+                        <Divider/>
+                        <List>
+                            {under_menu.map((element, index) => (
+                                <Link to={element.link}>
+                                    <ListItem key={element.label} disablePadding onClick={() => {
+                                        if ('request' in element) {
+                                            element.request()
+                                        }
+                                    }}>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                            </ListItemIcon>
+                                            <ListItemText primary={element.label} sx={{color: '#121212'}}/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                </Link>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+                {props.part === undefined
+                    && <Box component="main"
+                            sx={{flexGrow: 1, p: 3, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Typography paragraph sx={{textAlign: 'center'}}>
+                            Выберите пункт личного кабинета.
+                        </Typography>
+                    </Box>}
+                {props.part === 'setting' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
-
+                        onClick={() => {
+                            generic.delete_user(props.user_id)
+                        }}
                     >
-                        Сменить пароль
+                        Удалить аккаунт
                     </Button>
-                </Box>
+
+                    <Box component="form" onSubmit={changePassword} noValidate sx={{mt: 1}}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="old_password"
+                            label="Старый пароль"
+                            name="old_password"
+                            autoComplete="old_password"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="new_password"
+                            label="Новый пароль"
+                            type="password"
+                            id="new_password"
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="repeat_new_password"
+                            label="Повтор нового пароля"
+                            type="password"
+                            id="repeat_new_password"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2}}
+
+                        >
+                            Сменить пароль
+                        </Button>
+                    </Box>
 
 
-            </Box>}
-            {props.part === 'resume'
-                && <Resume user_id={props.user_id}
-                           user_data={props.user_data}/>}
-            {props.part === 'vacancy'
-                && <Vacancy user_id={props.user_id}
-                            user_vacancy={props.user_vacancy}
-                            user_data={props.user_data}/>}
-            {props.part === 'interview-questions'
-                && <InterviewQuestions user_id={props.user_id}
-                                       user_data={props.user_data}/>}
-            {props.part === 'calendar' && <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Schedule user_vacancy={props.user_vacancy}/>
-            </Box>}
-        </Box>
+                </Box>}
+                {props.part === 'resume'
+                    && <Resume user_id={props.user_id}
+                               user_data={props.user_data}/>}
+                {props.part === 'vacancy'
+                    && <Vacancy user_id={props.user_id}
+                                user_vacancy={props.user_vacancy}
+                                user_data={props.user_data}/>}
+                {props.part === 'interview-questions'
+                    && <InterviewQuestions user_id={props.user_id}
+                                           user_data={props.user_data}/>}
+                {props.part === 'calendar' && <Box component="main" sx={{flexGrow: 1, p: 3, height: '100%'}}>
+                    <Schedule user_vacancy={props.user_vacancy}/>
+                </Box>}
+            </div>
+        </Container>
     );
 }

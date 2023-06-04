@@ -49,11 +49,14 @@ export const Resume = (props: any) => {
                        sx={{
                            height: 'calc(100vh - 68.5px)',
                            width: '100vw',
-                           display: 'flex',
-                           justifyContent: 'center',
-                           alignItems: 'center',
-                           padding: '0 !important'
+                           padding:'50px',
                        }}>
+                <div style={{boxShadow: '0px 2px 20px 3px rgba(0,0,0,0.2)',
+                    height: '100%',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'}}>
                 <DataGrid
                     localeText={{
                         MuiTablePagination: {
@@ -82,7 +85,7 @@ export const Resume = (props: any) => {
                     sx={{
                         width: '30vw',
                         height: '100%',
-                        boxShadow:'0px 2px 20px 3px rgba(0,0,0,0.2)'
+                        borderLeft: '1px solid rgba(0, 0, 0, 0.12)'
                     }}
                 >
                     <Box sx={{ my: 3, mx: 2 }}>
@@ -171,6 +174,7 @@ export const Resume = (props: any) => {
                         <Button onClick={invite}>Пригласить</Button>
                     </Box>
                 </Box>}
+                </div>
             </Container>
         </>
     );

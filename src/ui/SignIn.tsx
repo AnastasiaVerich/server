@@ -63,14 +63,16 @@ export const SignIn = (props:any) => {
                        }}>
                 <Container maxWidth={false}
                            sx={{
-                               width: '100vw',
+                               width: 'fit-content',
+                               height:'400px',
                                display: 'flex',
                                justifyContent: 'center',
-                               alignItems: 'center'
+                               alignItems: 'center',
+                               boxShadow: '0px 2px 20px 3px rgba(0,0,0,0.2)'
                            }}>
                     <Container component="main"
                                maxWidth='xs'
-                               sx={{border: '1px solid rgba(0, 0, 0, 0.12)', margin:'0 0 0 auto'}}>
+                               sx={{margin:'0 0 0 auto'}}>
                         <CssBaseline/>
                         <Box
                             sx={{
@@ -134,7 +136,7 @@ export const SignIn = (props:any) => {
                     </Container>
                     <Container component="main"
                                maxWidth='xs'
-                               sx={{border: '1px solid rgba(0, 0, 0, 0.12)',  margin:'0 auto 0 0 '}}>
+                               sx={{borderLeft: '1px solid rgba(0, 0, 0, 0.12)', height:'100%', margin:'0 auto 0 0 ', display:'flex', alignItems:'center'}}>
                         <CssBaseline/>
                         <Box
                             sx={{

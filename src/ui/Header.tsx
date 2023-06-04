@@ -7,20 +7,15 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import MoreIcon from "@mui/icons-material/MoreVert";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {Link} from "react-router-dom";
 import {generic, resume, vacancy} from "../api/api";
-
-
-
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 export const Header = (props:any) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -30,7 +25,7 @@ export const Header = (props:any) => {
 
     let menu: Array<{label:string,link:string, request?:any}> =[{label:'Соискателям',link:'/vacancies'},{label:'Работодателям',link:'/info'}]
     let user_menu: Array<{label:string,link:string,func?:any}>= [{label:'Вход | Регистрация',link:'/login'}]
-    let logo = 'EasyWork'
+    let logo = 'Найм'
 
     if (props.auth_state === 'unlogged') {
         menu = [{label:'Вакансии',link:'/vacancies', request:()=>{vacancy.get_vacancy(100)}},
@@ -81,10 +76,10 @@ export const Header = (props:any) => {
         <Link to="/bar">Bar</Link>
     </nav>*/
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{boxShadow:'0px 2px 20px 12px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                    <QueryStatsIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
                     <Typography
                         variant="h6"
                         noWrap
@@ -181,8 +176,7 @@ export const Header = (props:any) => {
                                 </Badge>
                             </IconButton>
                         </>}
-                    {props.auth_state === 'unlogged'
-                        ? <Box sx={{flexGrow: 0}}>
+                     <Box sx={{flexGrow: 0, display:'flex'}}>
                             {user_menu.map((page,i) => (
                                 <Button
                                     key={i}
@@ -197,54 +191,7 @@ export const Header = (props:any) => {
                                 </Button>
                             ))}
                         </Box>
-                        : <>
-                            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                                <Tooltip title="Open settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-                                    </IconButton>
-                                </Tooltip>
 
-                            </Box>
-                            <Box sx={{display: {xs: 'flex', md: 'none'}}}>
-
-                                <Tooltip title="Открыть меню">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                        <MoreIcon/>
-                                    </IconButton>
-                                </Tooltip>
-
-                            </Box>
-                            <Menu
-                                sx={{mt: '45px'}}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-
-
-                                {user_menu.map((el,i) => (
-                                    <MenuItem key={i} onClick={()=>{
-                                        console.log(el)
-                                        console.log(i)
-                                        el.func && el.func()
-                                        handleCloseNavMenu()
-                                    }}>
-                                        <Typography textAlign="center" ><Link to={el.link}>{el.label}</Link></Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </>}
                 </Toolbar>
             </Container>
         </AppBar>

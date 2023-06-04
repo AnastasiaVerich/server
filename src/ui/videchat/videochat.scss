@@ -1,0 +1,26 @@
+.video_box {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  .video_container {
+    display: flex;
+    align-items: center;
+
+    &.my_video {
+      position: absolute;
+      width: 30%;
+      z-index: 1;
+      left: 0;
+    }
+
+    &.other_video {
+      width: 100%;
+      position: relative;
+      video {
+        background: black;
+      }
+    }
+  }
+}
