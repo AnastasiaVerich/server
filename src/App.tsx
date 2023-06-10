@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "./ui/Header";
 import 'react-toastify/dist/ReactToastify.css'
@@ -7,21 +7,26 @@ import SignUpCandidate from "./ui/SignUpCandidate";
 import SignUpHr from "./ui/SignUpHr";
 import {Resume} from "./ui/Resume";
 import {Chat} from "./ui/Messanger";
-import {Videochat} from "./ui/videchat/Videochat";
 
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import {Main} from "./ui/Main";
 import {ToastContainer} from "react-toastify";
 import {PersonalArea} from "./ui/PersonalArea";
 import {Vacancy} from "./ui/Vacancy";
+import {socketEvents} from "./socket/socket_event";
+import Room from "./ui/videchat/Videochat_room";
+import {Videochat_} from "./ui/videchat/Videochat_dont_exist";
 
 export const  App=(props:any) =>{
+    useEffect(()=>{
+
+        socketEvents(props)
+    },[])
     return (
         <>
         <Router>
             <div className="App">
-                <Header auth_state={props.state.generic.auth_state}
-                        user_id={props.state.user.user_data.user_id}/>
+                <Header state={props.state}/>
 
                 <Switch>
                     <Route exact path="/" component={Main} />{/*нез  HR*/}
@@ -29,36 +34,33 @@ export const  App=(props:any) =>{
                     <Route exact path="/registration" component={SignUpCandidate} />{/*нез  */}
                     <Route exact path="/registration/hr" component={SignUpHr} />{/*нез  */}
                     <Route exact path="/login"  render={(e)=>{
-                        return <SignIn user_id={props.state.user.user_data.user_id}/>
+                        return <SignIn state={props.state}/>
                     }}/>{/*нез  */}
 
 
                     <Route exact path="/vacancies" render={(e)=>{
-                        return <Vacancy headers={props.state.main_table.headers}
-                                        vacancy={props.state.vacancy}/>
+                        return <Vacancy state={props.state}/>
                     }}/>
                     <Route exact path="/candidates" render={(e)=>{
-                        return <Resume headers={props.state.main_table.headers}
-                                       changeSelectedId={props.changeSelectedId}
-                                       resume={props.state.resume}
-                                       user_id={props.state.user.user_data.user_id}
-                                       selected_id={props.state.main_table.selected_id}
-                                       user_vacancy={props.state.vacancy}/>
+                        return <Resume changeSelectedId={props.changeSelectedId} state={props.state}/>
                     }}/>
 
-                    <Route exact path="/videochat" component={Videochat}/>{/*канд */}
                     <Route exact path="/personal_area" render={(e)=>{
-                        return <PersonalArea type={props.state.user.user_data.type}
-                                             user_id={props.state.user.user_data.user_id}/>
+                        return <PersonalArea state={props.state}/>
                     }}/>{/*канд hr*/}
                     <Route exact path="/personal_area/:part"  render={(e)=>{
                         return <PersonalArea part={e.match.params.part}
-                                             user_data={props.state.user.user_data}
-                                             type={props.state.user.user_data.type}
-                                             user_vacancy={props.state.vacancy}
-                                             user_id={props.state.user.user_data.user_id}/>
+                                             state={props.state}/>
                     }}/>{/*канд hr*/}
                     <Route exact path="/chat" component={Chat}/>{/*канд hr*/}
+
+                    <Route exact path='/videochat/room/:id' render={(e)=>{
+                        return <Room state={props.state}/>
+                    }} />
+                    <Route exact path='/videochat'
+                           render={(e)=>{
+                               return <Videochat_ state={props.state}/>
+                           }}/>
 
                 </Switch>
             </div>
@@ -76,16 +78,6 @@ export const  App=(props:any) =>{
                 theme="light"
             />
             </>
-        /*<div className="App">
-
-
-           {/!* <Videochat/>*!/}
-            <TestServerConnect/>
-           {/!* <SignUpHr/>*!/}
-           {/!* <Container maxWidth={false}  sx={{ minHeight:'calc(100vh - 68.5px)', width: '100vw'}} >
-
-            </Container>*!/}
-        </div>*/
     );
 }
 

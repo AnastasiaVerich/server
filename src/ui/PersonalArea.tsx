@@ -27,11 +27,11 @@ const drawerWidth = 240;
 export const PersonalArea = (props: any) => {
     let menu: { label: string, link: string, request?: any }[] = [{label: '', link: ''}]
     let under_menu: { label: string, link: string, request?: any }[] = [{label: '', link: ''}]
-    if (props.type === 'candidate') {
+    if (props.state.user.user_data.type === 'candidate') {
         menu = [{label: 'Резюме', link: '/personal_area/resume'}
             , {label: 'Календарь', link: '/personal_area/calendar'}]
         under_menu = [{label: 'Настройки', link: '/personal_area/setting'}]
-    } else if (props.type === 'hr') {
+    } else if (props.state.user.user_data.type === 'hr') {
         menu = [{label: 'Вакансии', link: '/personal_area/vacancy'}
             , {label: 'Интервью-вопросы', link: '/personal_area/interview-questions'}
             , {label: 'Календарь', link: '/personal_area/calendar'}]
@@ -46,7 +46,7 @@ export const PersonalArea = (props: any) => {
             repeat_new_password: form_data.get('repeat_new_password'),
         }
         if (data.new_password === data.repeat_new_password) {
-            generic.update_password(props.user_id, data.old_password, data.new_password, '')
+            generic.update_password(props.state.user.user_data.user_id, data.old_password, data.new_password, '')
         } else {
             toast.info('Неверный повтор пароля');
         }
@@ -135,7 +135,7 @@ export const PersonalArea = (props: any) => {
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                         onClick={() => {
-                            generic.delete_user(props.user_id)
+                            generic.delete_user(props.state.user.user_data.user_id)
                         }}
                     >
                         Удалить аккаунт
@@ -184,17 +184,13 @@ export const PersonalArea = (props: any) => {
 
                 </Box>}
                 {props.part === 'resume'
-                    && <Resume user_id={props.user_id}
-                               user_data={props.user_data}/>}
+                    && <Resume state={props.state}/>}
                 {props.part === 'vacancy'
-                    && <Vacancy user_id={props.user_id}
-                                user_vacancy={props.user_vacancy}
-                                user_data={props.user_data}/>}
+                    && <Vacancy state={props.state}/>}
                 {props.part === 'interview-questions'
-                    && <InterviewQuestions user_id={props.user_id}
-                                           user_data={props.user_data}/>}
+                    && <InterviewQuestions state={props.state} />}
                 {props.part === 'calendar' && <Box component="main" sx={{flexGrow: 1, p: 3, height: '100%'}}>
-                    <Schedule user_vacancy={props.user_vacancy}/>
+                    <Schedule state={props.state}/>
                 </Box>}
             </div>
         </Container>

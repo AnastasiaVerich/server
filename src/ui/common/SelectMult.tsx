@@ -41,7 +41,6 @@ export const  MultipleSelectChip=(props:any)=> {
             typeof value === 'string' ? value.split(',') : value,
         );
     };
-    console.log(props.values)
 
     return (
         <div>

@@ -37,10 +37,8 @@ export const Resume = (props: any) => {
     );
 
     function invite(){
-        console.log(props.user_id)
-        console.log(props.selected_id)
-        console.log(selectedVacancyId)
-        commonVR.invite_user(props.selected_id, selectedVacancyId)
+
+        commonVR.invite_user(props.state.main_table.selected_id, selectedVacancyId)
     }
 
     return (
@@ -125,12 +123,12 @@ export const Resume = (props: any) => {
                     }}
                     paginationModel={paginationModel}
                     onPaginationModelChange={setPaginationModel}
-                    rows={props.resume ? props.resume : []}
-                    columns={props.headers ? props.headers : []}
+                    rows={props.state.resume ? props.state.resume : []}
+                    columns={props.state.main_table.headers ? props.state.main_table.headers : []}
                     onRowClick={(params, event, details) => {
-                        console.log(params.row.resume_id)
+
                         props.changeSelectedId(params.row.resume_id)
-                        setSelectedResume(props.resume.find((x:any)=>x.resume_id === params.row.resume_id))
+                        setSelectedResume(props.state.resume.find((x:any)=>x.resume_id === params.row.resume_id))
                     }}
                     slots={{
                         toolbar: GridToolbar,
@@ -222,7 +220,7 @@ export const Resume = (props: any) => {
                                 }}
 
                                 label="Вакансия">
-                                {props.user_vacancy.map((x:any)=>{
+                                {props.state.vacancy.map((x:any)=>{
                                     return <MenuItem value={x.vacancy_id}>{x.label}</MenuItem>
                                 })}
                             </Select>

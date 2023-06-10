@@ -60,8 +60,6 @@ let store = {
         vacancy_with_cv_connection:[],
         interview_questions:[],
         schedule_events_data:[],
-
-
         recording:{
             data:[],
             recording_data:[{
@@ -69,11 +67,15 @@ let store = {
                 recording_url:'',
             }],
         },
-
         generic:{
             //unlogged hr candidate test
             //0-незарег, 1 - HR 2- Кандидат, 4 - тест нужных пунктов
             auth_state:'unlogged',
+        },
+        interview_questions_answer:[],
+        notification:{
+            count:0,
+            arr:[]
         }
 
     },
@@ -279,7 +281,7 @@ let store = {
 
     },
     update_state_object(prev_state:any, new_state:any) {
-        console.log('555')
+
         Object.keys(new_state).map(el=>{
             if(el in prev_state){
                 prev_state[el]=new_state[el]

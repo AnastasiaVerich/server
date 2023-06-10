@@ -17,18 +17,7 @@ import {generic} from "../api/api";
 import {SendCodeInMail} from "./pop-up/send_code_in_mail";
 
 const logo:string = 'EasyWork'
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                {logo}
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+
 
 const theme = createTheme();
 
@@ -177,7 +166,7 @@ export const SignIn = (props:any) => {
 
                     </Container>
 
-                    <SendCodeInMail open={openSendCodePopup} setOpen={setOpenSendCodePopup} user_id={props.user_id} />
+                    <SendCodeInMail open={openSendCodePopup} setOpen={setOpenSendCodePopup}  props={props.state} />
             </Container>
             </Container>
         </ThemeProvider>

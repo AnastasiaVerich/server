@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export const  SelectOne=(props:any)=> {
+
     const handleChange = (event: SelectChangeEvent) => {
         props.setValue(event.target.value as string);
     };
@@ -23,13 +24,13 @@ export const  SelectOne=(props:any)=> {
                     {props.values.map((el:any) => (
                         <MenuItem
                             key={el.value}
-                            value={el}>
+                            value={el.value}>
                             {el.label}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
-            <input  hidden value={props.value.value} id={props.id} name={props.id}/>
+            <input  hidden value={props.value} id={props.id} name={props.id}/>
         </Box>
     );
 }

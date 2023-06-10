@@ -23,7 +23,7 @@ export const CreateInterviewQuestions = (props: any) => {
         props.setOpen(false);
     };
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        console.log(10)
+
         event.preventDefault();
         const form_data = new FormData(event.currentTarget);
         const data: any = {
@@ -44,8 +44,8 @@ export const CreateInterviewQuestions = (props: any) => {
                 items: dataItemsQuest,
             })
         }
-        console.log(data)
-        vacancy.create_interview_questions(data,props.user_id)
+
+        vacancy.create_interview_questions(data,props.state.user.user_data.user_id)
 
     };
 
@@ -117,7 +117,7 @@ const Question = (props: any) => {
         value: 'first',
         label: 'first'
     }]);
-    console.log(type)
+
     return (<>
 
         {type.value === ''

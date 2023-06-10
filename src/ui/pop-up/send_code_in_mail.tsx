@@ -28,7 +28,7 @@ export const SendCodeInMail = (props: any) => {
 
         } else if(state === 'update_password'){
             if (new_password === repeat_new_password) {
-                generic.update_password(props.user_id, '',new_password,'after_checking_the_code',  props.setOpen)
+                generic.update_password(props.state.user.user_data.user_id, '',new_password,'after_checking_the_code',  props.setOpen)
 
             } else{
                 toast.info('Неверный повтор пароля');

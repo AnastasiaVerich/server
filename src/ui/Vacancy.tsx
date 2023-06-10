@@ -126,12 +126,10 @@ export  const Vacancy=(props:any) =>{
                 }}
                 paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
-                rows={props.vacancy?props.vacancy:rows}
-                columns={props.headers?props.headers:columns}
+                rows={props.state.vacancy?props.state.vacancy:rows}
+                columns={props.state.main_table.headers?props.state.main_table.headers:columns}
                 onRowClick={(params, event, details)=>{
-                    console.log(params.row.resume_id)
-                    console.log(event)
-                    console.log(details)
+
                 }}
 
                 slots={{

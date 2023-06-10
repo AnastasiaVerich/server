@@ -53,7 +53,7 @@ export const CreateResume = (props: any) => {
         }
         for (let i = 1; i <= countEducation.length; i++) {
             // @ts-ignore
-            console.log(form_data.get('type_educ' + i))
+
             data.dataEducation.push({
                 type: form_data.get('type_educ' + i),
                 year_ending: Number(form_data.get('year_ending_educ' + i)),
@@ -68,7 +68,7 @@ export const CreateResume = (props: any) => {
             })
         }
 
-        resume.create_resume(data,props.user_id)
+        resume.create_resume(data,props.state.user.user_data.user_id)
 
     };
 
@@ -89,7 +89,7 @@ export const CreateResume = (props: any) => {
                                     name="surname"
                                     autoFocus
                                     inputProps={{ maxLength: 50 }}
-                                    value={props.user_data.surname}
+                                    value={props.state.user.user_data.surname}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4}>
@@ -101,7 +101,7 @@ export const CreateResume = (props: any) => {
                                     id="name"
                                     label="Имя"
                                     inputProps={{ maxLength: 50 }}
-                                    value={props.user_data.name}
+                                    value={props.state.user.user_data.name}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4}>
@@ -112,7 +112,7 @@ export const CreateResume = (props: any) => {
                                     label="Отчество"
                                     name="patronymic"
                                     inputProps={{ maxLength: 50 }}
-                                    value={props.user_data.patronymic}
+                                    value={props.state.user.user_data.patronymic}
                                 />
                             </Grid>
 

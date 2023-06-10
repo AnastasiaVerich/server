@@ -27,3 +27,13 @@ a {
   min-width: 45%!important;
   max-width: 45%!important;
 }
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthMd.css-12rl710-MuiPaper-root-MuiDialog-paper{
+  width: calc(100vw - 50px);
+  max-width: initial;
+  height: calc(100vh - 168.5px);
+  margin: 0px;
+}
+.css-2blr9s-MuiTableRow-root>*{
+  border-bottom: 1px solid rgba(224, 224, 224, 1)!important;
+}

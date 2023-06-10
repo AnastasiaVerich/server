@@ -10,13 +10,11 @@ const root = ReactDOM.createRoot(
 
 let rerenderentare_tree = (state:any) => {
     root.render(
-        <React.StrictMode>
             <App state={state}
                  render={store.render.bind(store)}
                  change_auth_state={store.change_auth_state.bind(store)}
                  changeSelectedId={store.changeSelectedId.bind(store)}
             />
-        </React.StrictMode>
     )
 
 }
